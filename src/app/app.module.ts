@@ -24,6 +24,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {AuthService} from "./auth.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { LoginComponent } from './login/login.component';
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    AngularFireAuthModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
@@ -61,7 +64,9 @@ import { LoginComponent } from './login/login.component';
       { path: 'admin/orders', component: AdminOrdersComponent },
     ])
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
