@@ -22,13 +22,16 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
-import {RouterModule} from "@angular/router";
 import { LoginComponent } from './login/login.component';
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AuthService} from "./auth.service";
 import {AuthGuard} from "./auth.guard";
 import {UserService} from "./user.service";
 import {AdminAuthGuard} from "./admin-auth.guard";
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import {CategoryService} from "./category.service";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ProductService} from "./product.service";
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import {AdminAuthGuard} from "./admin-auth.guard";
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -55,33 +59,15 @@ import {AdminAuthGuard} from "./admin-auth.guard";
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'shopping-cart', component: ShoppingCartComponent },
-      { path: 'login', component: LoginComponent },
-
-      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
-      { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard]  },
-      { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard]  },
-
-      {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
-      {
-        path: 'admin/orders',
-        component: AdminOrdersComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
-    ])
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
     AuthGuard,
     AdminAuthGuard,
-    UserService
+    UserService,
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
