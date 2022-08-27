@@ -33,6 +33,11 @@ import {CategoryService} from "./category.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ProductService} from "./product.service";
 
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatButtonModule} from "@angular/material/button";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +64,11 @@ import {ProductService} from "./product.service";
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,
