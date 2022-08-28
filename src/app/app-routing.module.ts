@@ -14,7 +14,7 @@ import {AdminProductsComponent} from "./admin/admin-products/admin-products.comp
 import {AdminOrdersComponent} from "./admin/admin-orders/admin-orders.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: ProductsComponent},
   {path: 'products', component: ProductsComponent},
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'login', component: LoginComponent},
