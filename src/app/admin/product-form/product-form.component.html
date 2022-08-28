@@ -11,8 +11,9 @@
           formControlName="title"
         >
         <div *ngIf="form.get('title')!.dirty && form.get('title')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('title')!.hasError('required')">Required</small>
-          <small *ngIf="form.get('title')!.hasError('minlength')">Min length {{ form.get('title')!.errors!['minlength']['requiredLength'] }}</small>
+          <small *ngIf="form.get('title')!.hasError('required')">Required.</small>
+          <small *ngIf="form.get('title')!.hasError('minlength')">Min length {{ form.get('title')!.errors!['minlength']['requiredLength'] }}. </small>
+          <small *ngIf="form.get('title')!.hasError('whitespace')">Delete white space on start or end.</small>
         </div>
       </div>
       <div class="form-group mb-3">
@@ -29,7 +30,7 @@
           >
         </div>
         <div *ngIf="form.get('price')!.dirty && form.get('price')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('price')!.hasError('required')">Required</small>
+          <small *ngIf="form.get('price')!.hasError('required')">Required </small>
           <small *ngIf="form.get('price')!.hasError('min')">Should be 0 or higher. </small>
           <small *ngIf="form.get('price')!.hasError('pattern')">Should be only numbers (two number after dot). </small>
         </div>
@@ -64,24 +65,12 @@
           <small *ngIf="form.get('imageUrl')!.hasError('pattern')">Please enter valid URL</small>
         </div>
       </div>
-      <button class="btn btn-primary" [disabled]="form.invalid">Save</button>
+      <button class="btn btn-primary" [disabled]="form.invalid || !isFormChanged">Save</button>
       <button *ngIf="id" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
     </form>
   </div>
   <div class="col-md-6">
-    <div class="card">
-      <img *ngIf="form.get('imageUrl')!.value; else defaultImg" [src]="form.get('imageUrl')!.value" class="card-img-top" alt="...">
-      <ng-template #defaultImg>
-        <div class="img-default">
-          Image
-        </div>
-      </ng-template>
-      <div class="card-body">
-        <h5 class="card-title" *ngIf="form.get('title')!.value; else defaultTitle">{{ form.get('title')!.value }}</h5>
-        <ng-template #defaultTitle><h5>Product Name</h5></ng-template>
-        <p class="card-text">Price: {{ form.get('price')!.value | currency: 'USD' }}</p>
-      </div>
-    </div>
+    <product-card [product]="product" [show-actions]="false"></product-card>
   </div>
 </div>
 

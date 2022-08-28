@@ -37,6 +37,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatButtonModule} from "@angular/material/button";
+import { ProductCardComponent } from './products/product-card/product-card.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import {MatButtonModule} from "@angular/material/button";
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductCardComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,
