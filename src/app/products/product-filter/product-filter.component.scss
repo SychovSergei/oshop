@@ -1,9 +1,7 @@
-:host {
-  display: flex;
-  margin-bottom: 15px;
-  width: 100%;
-
-  .list-group {
-    width: 100%;
-  }
+.sticky-top {
+  top: 4rem;
 }
+.list-group {
+  width: 100%;
+}
+
