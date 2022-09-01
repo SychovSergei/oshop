@@ -39,6 +39,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatButtonModule} from "@angular/material/button";
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import {ShoppingCartService} from "./shopping-cart.service";
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     AdminAuthGuard,
     UserService,
     CategoryService,
-    ProductService
+    ProductService,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })
