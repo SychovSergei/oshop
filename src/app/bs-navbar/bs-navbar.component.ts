@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {AppUser} from "../models/app-user";
 import {ShoppingCartService} from "../shopping-cart.service";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {ShoppingCart} from "../models/shopping-cart";
 
 @Component({
@@ -10,11 +10,10 @@ import {ShoppingCart} from "../models/shopping-cart";
   templateUrl: './bs-navbar.component.html',
   styleUrls: ['./bs-navbar.component.scss']
 })
-export class BsNavbarComponent implements OnInit, OnDestroy {
+export class BsNavbarComponent implements OnInit {
   appUser: AppUser | null;
-  cart$: Observable<ShoppingCart | null>;
-  cartQuantity: number;
-  subCart: Subscription;
+  cart$: Observable<ShoppingCart>;
+  cartItemCount: number;
 
   constructor(
     private authService: AuthService,
@@ -28,16 +27,8 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.authService.appUser$.subscribe(appUser => this.appUser = appUser)
-    this.cart$ = await this.cartService.getCart();
-    this.subCart = this.cart$.subscribe(cart => {
-      if (cart) this.cartQuantity = cart.totalItemsCount;
-      // console.log('NAVBAR this.cart = ', this.cart);
-    })
-  }
 
-  ngOnDestroy(): void {
-    this.subCart.unsubscribe();
+    this.cart$ = (await this.cartService.getCart());
   }
-
 
 }

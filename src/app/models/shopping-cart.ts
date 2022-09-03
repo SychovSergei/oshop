@@ -2,7 +2,7 @@ import {ShoppingCartItem} from "./shopping-cart-item";
 
 export class ShoppingCart {
 
-  constructor(public items: ShoppingCartItem[]) {
+  constructor(public items: {[key: string]: ShoppingCartItem}) {
   }
 
   get totalItemsCount() {

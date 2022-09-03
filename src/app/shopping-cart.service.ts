@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, AngularFireObject} from "@angular/fire/compat/database";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {Product} from "./models/product";
 import {map, Observable, take} from "rxjs";
 import {ShoppingCart} from "./models/shopping-cart";
@@ -22,7 +22,9 @@ export class ShoppingCartService {
     return (this.db.object<ShoppingCart>('/shopping-carts/' + cartId))
       .valueChanges()
       .pipe(
-        map(x => new ShoppingCart(x!.items))
+        map(x =>
+          x ? new ShoppingCart(x!.items) : new ShoppingCart({})
+        )
       )
   }
 
@@ -56,7 +58,7 @@ export class ShoppingCartService {
         prodItem$.update(
           item.payload.exists()
             ? {product: product, quantity: (item.payload.toJSON() as ShoppingCartItem).quantity + changeNumber}
-            : {product: product, quantity: 0}
+            : {product: product, quantity: 1}
           )}
       )
   }
