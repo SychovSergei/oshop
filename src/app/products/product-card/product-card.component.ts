@@ -17,21 +17,11 @@ export class ProductCardComponent implements OnInit {
     private cartService: ShoppingCartService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   addToCart() {
     this.cartService.addToCart(this.product);
   }
 
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
-  }
-
-  getQuantity(): number {
-    if (!this.shoppingCart || !this.shoppingCart.items) return 0;
-
-    let item = this.shoppingCart.items[this.product.key];
-    return item ? item.quantity : 0;
-  }
 }

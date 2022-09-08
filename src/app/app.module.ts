@@ -40,6 +40,7 @@ import {MatButtonModule} from "@angular/material/button";
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import {ShoppingCartService} from "./shopping-cart.service";
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {ShoppingCartService} from "./shopping-cart.service";
     LoginComponent,
     ProductFormComponent,
     ProductCardComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+table {
+  th {
+    padding: .5rem;
+  }
+  td {
+    vertical-align: bottom;
+  }
+  th:last-child,
+  td:last-child {
+    text-align: end;
+  }
+  tfoot {
+    th:last-child,
+    td:last-child {
+      font-size: 1.2rem;
+    }
+  }
+}
+.img-thumbnail {
+  border: 1px solid grey;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+}

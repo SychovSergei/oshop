@@ -7,25 +7,36 @@ import {ShoppingCartItem} from "./models/shopping-cart-item";
 
 @Injectable()
 export class ShoppingCartService {
-
   constructor(private db: AngularFireDatabase) { }
 
-  private create() {
-    return this.db.list('/shopping-carts').push({
-      dateCreated: new Date().getTime()
-    })
-  }
-
-  async getCart(): Promise<Observable<ShoppingCart>>
-  {
+  async getCart(): Promise<Observable<ShoppingCart>> {
     let cartId = await this.getOrCreateCartId();
     return (this.db.object<ShoppingCart>('/shopping-carts/' + cartId))
       .valueChanges()
       .pipe(
         map(x =>
-          x ? new ShoppingCart(x!.items) : new ShoppingCart({})
+          new ShoppingCart(x!.items)
         )
       )
+  }
+
+  async clearCart() {
+    let cartId = await this.getOrCreateCartId();
+    this.db.object('/shopping-carts/' + cartId + '/items/').remove();
+  }
+
+  addToCart(product: Product) {
+    this.updateProductItem(product, 1);
+  }
+
+  removeFromCart(product: Product) {
+    this.updateProductItem(product, -1);
+  }
+
+  private create() {
+    return this.db.list('/shopping-carts').push({
+      dateCreated: new Date().getTime()
+    })
   }
 
   private getItem(cartId: string, productId: string) {
@@ -41,26 +52,25 @@ export class ShoppingCartService {
     return result.key!;
   }
 
-  addToCart(product: Product) {
-    this.updateProductCart(product, 1);
-  }
-
-  removeFromCart(product: Product) {
-    this.updateProductCart(product, -1);
-  }
-
-  private async updateProductCart(product: Product, changeNumber: number) {
+  private async updateProductItem(product: Product, changeNumber: number) {
     let cartId = await this.getOrCreateCartId();
-    let prodItem$ = this.getItem(cartId, product.key!);
-    prodItem$.snapshotChanges()
+    let prodItem = this.getItem(cartId, product.key);
+    prodItem.snapshotChanges()
       .pipe(take(1))
       .subscribe( item => {
-        prodItem$.update(
-          item.payload.exists()
-            ? {product: product, quantity: (item.payload.toJSON() as ShoppingCartItem).quantity + changeNumber}
-            : {product: product, quantity: 1}
-          )}
-      )
+        if (changeNumber < 0 && (item.payload.toJSON() as ShoppingCartItem).quantity === 1) {
+          prodItem.remove();
+        } else {
+          prodItem.update({
+            title: product.title,
+            price: product.price,
+            imageUrl: product.imageUrl,
+            quantity: (item.payload.exists()
+              ? (item.payload.toJSON() as ShoppingCartItem).quantity
+              : 0) + changeNumber
+          })
+        }
+      })
   }
 
 }
