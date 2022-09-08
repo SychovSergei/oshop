@@ -46,7 +46,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   applyFilter(event: KeyboardEvent) {
     this.searchValue = (event.target as HTMLInputElement).value;
     this.products.filter = this.searchValue;
-    console.log(this.products.filter);
   }
 
   announceSortChange(sortState: Sort) {
