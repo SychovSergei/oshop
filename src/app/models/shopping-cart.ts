@@ -12,7 +12,6 @@ export class ShoppingCart {
       this.productCartList
         .push(new ShoppingCartItem({ ...item, key: prodId }));
     }
-    this.productCartList = this.productCartList.filter((item) => {return item.quantity > 0;})
   }
 
   getQuantity(product: Product): number {
