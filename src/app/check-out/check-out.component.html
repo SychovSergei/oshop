@@ -1,65 +1,9 @@
-<div class="row">
-  <div class="col-md-12">
-    <form [formGroup]="form" (ngSubmit)="placeOrder(form.value)">
-      <div class="form-group mb-3">
-        <label for="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          class="form-control"
-          name="name"
-          formControlName="name"
-        >
-        <div *ngIf="form.get('name')!.dirty && form.get('name')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('name')!.hasError('required')">Required.</small>
-          <small *ngIf="form.get('name')!.hasError('minlength')">Min length {{ form.get('name')!.errors!['minlength']['requiredLength'] }}. </small>
-        </div>
-      </div>
-      <div class="form-group mb-3">
-        <label for="addressLine1">Address</label>
-        <div class="input-group">
-          <input
-            id="addressLine1"
-            type="text"
-            class="form-control"
-            name="addressLine1"
-            formControlName="addressLine1"
-          >
-        </div>
-        <div *ngIf="form.get('addressLine1')!.dirty && form.get('addressLine1')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('addressLine1')!.hasError('required')">Required </small>
-          <small *ngIf="form.get('addressLine1')!.hasError('minlength')">Min length {{ form.get('addressLine1')!.errors!['minlength']['requiredLength'] }}. </small>
-        </div>
-      </div>
-      <div class="form-group mb-3">
-        <div class="input-group">
-          <input
-            id="addressLine2"
-            type="text"
-            class="form-control"
-            name="addressLine2"
-            formControlName="addressLine2"
-            placeholder="optional"
-          >
-        </div>
-      </div>
-      <div class="form-group mb-3">
-        <label for="city">City</label>
-        <input
-          id="city"
-          type="url"
-          class="form-control"
-          name="city"
-          formControlName="city"
-        >
-        <div *ngIf="form.get('city')!.dirty && form.get('city')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('city')!.hasError('required')">Required</small>
-        </div>
-      </div>
-      <button class="btn btn-primary" [disabled]="form.invalid">Place Order</button>
-    </form>
+<h2>Shipping</h2>
+<div class="row" *ngIf="cart$ | async as cart">
+  <div class="col-md-6">
+    <shipping-form [cart]="cart"></shipping-form>
   </div>
-<!--  <div class="col-md-6">-->
-<!--    <product-card [product]="product" [show-actions]="false"></product-card>-->
-<!--  </div>-->
+  <div class="col-md-6">
+    <shopping-cart-summary [cart]="cart"></shopping-cart-summary>
+  </div>
 </div>
