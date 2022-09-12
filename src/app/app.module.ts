@@ -34,7 +34,7 @@ import {CoreModule} from "./core/core.module";
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,
-    NgbModule,
+
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

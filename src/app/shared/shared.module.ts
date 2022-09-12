@@ -10,6 +10,7 @@ import {ProductService} from "./services/product.service";
 import {ShoppingCartService} from "./services/shopping-cart.service";
 import {OrderService} from "./services/order.service";
 import {UserService} from "./services/user.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -17,12 +18,14 @@ import {UserService} from "./services/user.service";
     ProductQuantityComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule,
   ],
   exports: [
     CommonModule,
     ProductCardComponent,
     ProductQuantityComponent,
+    NgbModule,
   ],
   providers: [
     AuthService,

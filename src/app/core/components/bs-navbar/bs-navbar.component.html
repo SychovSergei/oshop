@@ -3,15 +3,20 @@
     <a routerLink="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
     </a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarsExample07XL">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/shopping-cart">Shopping Cart <span *ngIf="cart$ | async as cart" class="badge bg-success rounded-pill ">{{ cart.totalItemsCount }}</span></a>
+          <a class="nav-link" routerLink="/shopping-cart"><i class="bi bi-cart" style="font-size: larger;"></i>  <span *ngIf="cart$ | async as cart" class="badge bg-success rounded-pill ">{{ cart.totalItemsCount }}</span></a>
         </li>
+      </ul>
+      <form role="search" class="me-lg-3">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <ul class="navbar-nav mb-2 mb-lg-0">
         <ng-template #anonymousUser>
           <li class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>
@@ -31,21 +36,6 @@
           </ul>
         </li>
       </ul>
-      <form role="search" class="me-lg-3">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
-      <div class="dropdown text-end">
-        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-        </a>
-        <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-      </div>
     </div>
   </div>
 </nav>
