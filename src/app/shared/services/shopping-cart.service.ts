@@ -58,7 +58,6 @@ export class ShoppingCartService {
     prodItem.snapshotChanges()
       .pipe(take(1))
       .subscribe( item => {
-        console.log(item)
         if (changeNumber < 0 && (item.payload.toJSON() as ShoppingCartItem).quantity === 1) {
           prodItem.remove();
         } else {
