@@ -1,0 +1,51 @@
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-body {
+  padding: 10px;
+}
+.card-content {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 5px 10px;
+}
+
+.image-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image {
+  max-width:100%;
+  height:auto;
+  //max-width: 100px;
+  //max-height: 100px;
+}
+.info-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  p {
+    //font-size: .9rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.order-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.button-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+}

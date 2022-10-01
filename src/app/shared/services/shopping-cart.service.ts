@@ -40,7 +40,7 @@ export class ShoppingCartService {
   }
 
   private getItem(cartId: string, productId: string) {
-    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
+    return this.db.object<ShoppingCartItem>('/shopping-carts/' + cartId + '/items/' + productId);
   }
 
   private async getOrCreateCartId(): Promise<string> {
@@ -58,17 +58,19 @@ export class ShoppingCartService {
     prodItem.snapshotChanges()
       .pipe(take(1))
       .subscribe( item => {
+        console.log(item)
         if (changeNumber < 0 && (item.payload.toJSON() as ShoppingCartItem).quantity === 1) {
           prodItem.remove();
         } else {
           prodItem.update({
             title: product.title,
+            images: product.images,
             price: product.price,
-            imageUrl: product.imageUrl,
+            mainImageUrl: product.images ? product.images[0].url : '',
             quantity: (item.payload.exists()
               ? (item.payload.toJSON() as ShoppingCartItem).quantity
               : 0) + changeNumber
-          })
+          } as ShoppingCartItem )
         }
       })
   }

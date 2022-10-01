@@ -24,4 +24,12 @@ export class ProductCardComponent implements OnInit {
     this.cartService.addToCart(this.product);
   }
 
+  convertToArray(images: any) {
+    const res: any = [];
+    const objArray = Object.keys(images);
+    objArray.forEach((key) => {
+      res.push(images[key])
+    })
+    return res;
+  }
 }

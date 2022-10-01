@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <form [formGroup]="form" (ngSubmit)="save(form.value)">
+    <form [formGroup]="form" (ngSubmit)="saveOrUpdate(form.value)">
       <div class="form-group mb-3">
         <label for="title">Title</label>
         <input
@@ -15,6 +15,15 @@
           <small *ngIf="form.get('title')!.hasError('minlength')">Min length {{ form.get('title')!.errors!['minlength']['requiredLength'] }}. </small>
           <small *ngIf="form.get('title')!.hasError('whitespace')">Delete white space on start or end.</small>
         </div>
+      </div>
+      <div class="form-group mb-3">
+<!--        [disabled]="form.invalid"-->
+        <mat-slide-toggle
+          [checked]="form.value['isActive']"
+          formControlName="isActive"
+        >
+          Activated
+        </mat-slide-toggle>
       </div>
       <div class="form-group mb-3">
         <label for="price">Price</label>
@@ -47,30 +56,43 @@
           <option value=""></option>
           <option *ngFor="let c of categories$ | async" [value]="c.key">{{ c.name }}</option>
         </select>
-        <div *ngIf="form.get('category')!.dirty && form.get('category')!.invalid" class="alert alert-danger">
+        <div *ngIf="form.get('category')!.touched && form.get('category')!.invalid" class="alert alert-danger">
           <small *ngIf="form.get('category')!.hasError('required')">Required</small>
         </div>
       </div>
       <div class="form-group mb-3">
-        <label for="imageUrl">Image URL</label>
-        <input
-          id="imageUrl"
-          type="url"
-          class="form-control"
-          name="imageUrl"
-          formControlName="imageUrl"
-        >
-        <div *ngIf="form.get('imageUrl')!.dirty && form.get('imageUrl')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('imageUrl')!.hasError('required')">Required</small>
-          <small *ngIf="form.get('imageUrl')!.hasError('pattern')">Please enter valid URL</small>
+        <uploader [filesFromOldValue]="oldValueImages" (newFilesListFromDrop)="getFilesFromDrop($event)" (backupFilesListFromDrop)="backupFilesFromDrop($event)"></uploader>
+        <div *ngFor="let file of filesForLoading">
+          <upload-task [file]="file" (imageObj)="addImage($event)"></upload-task>
         </div>
+        <ng-container *ngIf="images$ | async as images">
+          <div *ngIf="images.length > 0">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let image of images" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <product-image-item
+                  [image]="image"
+
+                  (deleteImageName)="deleteImage($event)"
+                ></product-image-item>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
-      <button class="btn btn-primary" [disabled]="form.invalid || !isFormChanged">Save</button>
-      <button *ngIf="id" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+      <div class="form-group mb-3">
+        <button class="btn btn-primary"
+                [disabled]="form.invalid || !isFormChanged">
+          Save
+        </button>
+        <button *ngIf="id" type="button" class="btn btn-danger"
+          (click)="delete()">
+          Delete
+        </button>
+      </div>
     </form>
   </div>
   <div class="col-md-6">
     <product-card [product]="product" [show-actions]="false"></product-card>
   </div>
 </div>
-

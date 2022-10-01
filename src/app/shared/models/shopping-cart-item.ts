@@ -1,10 +1,15 @@
+import {ProductImage} from "./product";
+
 export class ShoppingCartItem {
   key: string;
   title: string;
   price: number;
-  category: string;
-  imageUrl: string;
+  mainImageUrl: string;
   quantity: number;
+  dateCreated: number;
+  isActive: boolean;
+  category: string;
+  images: ProductImage[];
 
   constructor(init?: Partial<ShoppingCartItem>) {
     Object.assign(this, init);

@@ -1,8 +1,7 @@
 <div class="card" *ngIf="product">
-  <img *ngIf="product.imageUrl"
-       [src]="product.imageUrl"
-       class="card-img-top"
-       alt="{{ product.title }}">
+  <ng-container *ngIf="product.images">
+    <carousel-image [id]="product.key" [images]="convertToArray(product.images)"></carousel-image>
+  </ng-container>
   <div class="card-body">
     <h5 *ngIf="product.title" class="card-title" >{{ product.title }}</h5>
     <p *ngIf="product.price" class="card-text">Price: {{ product.price | currency: 'USD' }}</p>

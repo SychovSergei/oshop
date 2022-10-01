@@ -11,11 +11,13 @@ import {ShoppingCartService} from "./services/shopping-cart.service";
 import {OrderService} from "./services/order.service";
 import {UserService} from "./services/user.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {CarouselImageComponent} from "./components/carousel-image/carousel-image.component";
 
 @NgModule({
   declarations: [
     ProductCardComponent,
     ProductQuantityComponent,
+    CarouselImageComponent,
   ],
   imports: [
     CommonModule,

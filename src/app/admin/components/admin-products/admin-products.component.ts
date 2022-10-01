@@ -6,6 +6,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-products',
@@ -14,7 +15,7 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
   products: MatTableDataSource<Product>;
-  displayedColumns: string[] = ['title', 'category', 'price', 'imageUrl', 'action'];
+  displayedColumns: string[] = ['title', 'isActive', 'category', 'price', 'mainImage', 'action'];
   searchValue: string;
   subProducts: Subscription;
 
@@ -23,7 +24,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router
   ) {
   }
 
@@ -56,4 +58,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     }
   }
 
+  createNewProduct() {
+    this.productService.createEmptyProduct()
+      .then((resId) => {
+        // this.router.navigate(['/admin/products/new'])
+        this.router.navigate([`/admin/products/${resId.key}`])
+      })
+  }
 }

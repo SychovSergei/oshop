@@ -11,6 +11,8 @@ import {ShoppingCartSummaryComponent} from "./component/shopping-cart-summary/sh
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {ShoppingRoutingModule} from "./shopping-routing.module";
+import {AppModule} from "../app.module";
+import {ImageThumbComponent} from "./component/image-thumb/image-thumb.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import {ShoppingRoutingModule} from "./shopping-routing.module";
     ShippingFormComponent,
     ShoppingCartComponent,
     ShoppingCartSummaryComponent,
+    ImageThumbComponent,
   ],
+  exports: [],
   imports: [
     SharedModule,
     ReactiveFormsModule,
