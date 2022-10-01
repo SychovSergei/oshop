@@ -11,6 +11,13 @@
           </div>
         </ng-container>
       </ng-container>
+      <ng-container *ngIf="productsNew$ | async as newProducts">
+        <ng-container *ngFor="let productNew of newProducts">
+<!--          <div class="col-md-6 col-xl-4">-->
+              <product-card-new [product]="productNew" [shopping-cart]="cart"></product-card-new>
+<!--          </div>-->
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </div>

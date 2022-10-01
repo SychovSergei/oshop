@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {Product, ProductImage} from "../models/product";
+import {Product, ProductImage, ProductNew} from "../models/product";
 import {map, Observable, take} from "rxjs";
 
 @Injectable()
@@ -37,6 +37,16 @@ export class ProductService {
       .pipe(
         map(changes => changes
           .map(c => ({ key: c.key, ...c.payload.toJSON() } as Product))
+        )
+      );
+  }
+
+  getAllNotebooks(): Observable<ProductNew[]> {
+    return this.db.list<Product[] | null>('/productsNew/notebooks')
+      .snapshotChanges()
+      .pipe(
+        map(changes => changes
+          .map(c => ({ key: c.key, ...c.payload.toJSON() } as ProductNew))
         )
       );
   }

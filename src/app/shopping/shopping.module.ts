@@ -13,6 +13,8 @@ import {SharedModule} from "../shared/shared.module";
 import {ShoppingRoutingModule} from "./shopping-routing.module";
 import {AppModule} from "../app.module";
 import {ImageThumbComponent} from "./component/image-thumb/image-thumb.component";
+import { ProductCardNewComponent } from './component/products/product-card-new/product-card-new.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -25,12 +27,14 @@ import {ImageThumbComponent} from "./component/image-thumb/image-thumb.component
     ShoppingCartComponent,
     ShoppingCartSummaryComponent,
     ImageThumbComponent,
+    ProductCardNewComponent,
   ],
   exports: [],
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    ShoppingRoutingModule
+    ShoppingRoutingModule,
+    MatCardModule
   ]
 })
 export class ShoppingModule { }
