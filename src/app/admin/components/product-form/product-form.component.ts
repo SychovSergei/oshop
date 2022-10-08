@@ -1,18 +1,21 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CategoryList, CategoryService} from "../../../shared/services/category.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../../shared/services/product.service";
 import {Product, ProductImage} from 'src/app/shared/models/product';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject, Observable, Subscription, take} from "rxjs";
-import {ValidateStartsEndsWhiteSpace} from "./whitespace.validator";
 
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {ControlService} from "../control.service";
+import {FormItemControlService} from "../../form-item-control.service";
+import {Control} from "../dynamic-form-control/dynamic-form-control.component";
+
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit, OnDestroy {
   categories$: Observable<CategoryList[]>;
@@ -21,7 +24,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   oldValue: Product;
   oldValueImages: ProductImage[];
   isFormChanged: boolean = false;
-  urlRegEx = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)';
+  // urlRegEx = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)';
   form: FormGroup;
 
   images: BehaviorSubject<ProductImage[]> = new BehaviorSubject<ProductImage[]>([]);
@@ -34,65 +37,83 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   subGetProduct: Subscription;
   subFormValueChanges: Subscription;
 
+  controls: Control[] | null;
+  panelOpenState: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private controlService: ControlService,
+    private formControlService: FormItemControlService
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.categories$ = this.categoryService.getAll();
-
     this.form = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(2),
-        ValidateStartsEndsWhiteSpace
-      ]),
-      isActive: new FormControl(false, []),
-      price: new FormControl('', [
-        Validators.required,
-        Validators.min(0),
-        Validators.pattern("^\\d*\\.?(?:\\d{1,2})?$")
-      ]),
-      category: new FormControl('', [
-        Validators.required
-      ]),
-      images: new FormControl([], [])
     });
 
-    if (this.id) {
-      this.subGetProduct = this.productService.get(this.id)
-        .pipe(take(1))
-        .subscribe(prod => {
-          this.product = prod;
-          this.oldValue = prod;
-          this.oldValueImages = [...prod.images];
-          this.form.get('title')?.patchValue(prod.title);
-          this.form.get('isActive')?.patchValue(prod.isActive);
-          this.form.get('price')?.patchValue(prod.price ? prod.price : '0');
-          this.form.get('category')?.patchValue(prod.category);
+    // controls must be dynamic - 'notebooks','computers'
+    this.controlService.getControl('product')
+      .subscribe((controls) => {
+        this.controls = controls;
+        // this.controls?.forEach((controlItem) => {
+        //   this.form.addControl(
+        //     controlItem.key,
+        //     new FormControl(controlItem.value, [Validators.required]))
+        // })
 
-          this.images.next(prod.images || []);
-          this.images$.subscribe((array) => {
-            this.form.get('images')?.patchValue(array);
-            this.product.images = array;
-            this.isFormChanged = !this.isEqualNameItemArrays(this.oldValueImages, this.form.get('images')?.value);
-          })
-        });
-    }
+        this.form = this.formControlService.createFormGroupDynamic(this.controls!.sort((a, b) => {return a.order - b.order}));
+        this.form.addControl("images", new FormControl([], []));
 
+        // this.form.addControl("diagonal", new FormControl('', []));
+
+        if (this.id) {
+          this.assignValueFromDatabaseToForm(this.id);
+        }
+        this.checkFormValueChanges();
+      });
+
+  }
+
+  private assignValueFromDatabaseToForm(id: string) {
+    this.subGetProduct = this.productService.get(id)
+      .pipe(take(1))
+      .subscribe(prod => {
+        this.product = prod;
+        this.oldValue = prod;
+        this.oldValueImages = prod.images ? [...prod.images] : [];
+        this.form.get('title')?.patchValue(prod.title);
+        this.form.get('available')?.patchValue(prod.available);
+        this.form.get('quantity')?.patchValue(prod.quantity);
+        this.form.get('description')?.patchValue(prod.description);
+        this.form.get('price')?.patchValue(prod.price ? prod.price : '0');
+        this.form.get('category')?.patchValue(prod.category);
+
+        this.images.next(prod.images || []);
+        this.images$.subscribe((array) => {
+          this.form.get('images')?.patchValue(array);
+          this.product.images = array;
+          this.isFormChanged = !this.isEqualNameItemArrays(this.oldValueImages, this.form.get('images')?.value);
+        })
+      });
+  }
+
+  private checkFormValueChanges() {
     this.subFormValueChanges = this.form.valueChanges.subscribe((val: Product) => {
+
       this.product = val;
       if (this.id) {
         this.isFormChanged =
           this.oldValue.title !== val.title
-          || this.oldValue.isActive !== val.isActive
+          || this.oldValue.available !== val.available
           || this.oldValue.price !== val.price
+          || this.oldValue.quantity !== val.quantity
+          || this.oldValue.description !== val.description
           || this.oldValue.category !== val.category
-          || !this.isEqualNameItemArrays(this.oldValueImages, val.images)
+          || !this.isEqualNameItemArrays(this.oldValueImages, val.images);
       }
     })
   }
@@ -101,8 +122,9 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     if (this.id) this.productService.update(this.id, product)
       .then(() => {
         this.isFormChanged = false;
+        this.assignValueFromDatabaseToForm(this.id!)
         // this.router.navigate(['/admin/products'])
-      })
+      });
     this.oldValueImages = this.form.get('images')?.value;
   }
 

@@ -11,9 +11,7 @@ import {ShoppingCartSummaryComponent} from "./component/shopping-cart-summary/sh
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {ShoppingRoutingModule} from "./shopping-routing.module";
-import {AppModule} from "../app.module";
 import {ImageThumbComponent} from "./component/image-thumb/image-thumb.component";
-import { ProductCardNewComponent } from './component/products/product-card-new/product-card-new.component';
 import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
@@ -27,7 +25,6 @@ import {MatCardModule} from "@angular/material/card";
     ShoppingCartComponent,
     ShoppingCartSummaryComponent,
     ImageThumbComponent,
-    ProductCardNewComponent,
   ],
   exports: [],
   imports: [

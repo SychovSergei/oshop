@@ -1,85 +1,51 @@
 <div class="row">
   <div class="col-md-6">
     <form [formGroup]="form" (ngSubmit)="saveOrUpdate(form.value)">
-      <div class="form-group mb-3">
-        <label for="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          class="form-control"
-          name="title"
-          formControlName="title"
-        >
-        <div *ngIf="form.get('title')!.dirty && form.get('title')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('title')!.hasError('required')">Required.</small>
-          <small *ngIf="form.get('title')!.hasError('minlength')">Min length {{ form.get('title')!.errors!['minlength']['requiredLength'] }}. </small>
-          <small *ngIf="form.get('title')!.hasError('whitespace')">Delete white space on start or end.</small>
+      <ng-container *ngFor="let control of controls" class="form-row">
+        <div class="form-group mb-3">
+          <dynamic-form-control [control]="control"></dynamic-form-control>
         </div>
-      </div>
-      <div class="form-group mb-3">
-<!--        [disabled]="form.invalid"-->
-        <mat-slide-toggle
-          [checked]="form.value['isActive']"
-          formControlName="isActive"
-        >
-          Activated
-        </mat-slide-toggle>
-      </div>
-      <div class="form-group mb-3">
-        <label for="price">Price</label>
-        <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input
-            id="price"
-            type="number"
-            class="form-control"
-            aria-label="Amount (to the nearest dollar)"
-            name="price"
-            formControlName="price"
-          >
-        </div>
-        <div *ngIf="form.get('price')!.dirty && form.get('price')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('price')!.hasError('required')">Required </small>
-          <small *ngIf="form.get('price')!.hasError('min')">Should be 0 or higher. </small>
-          <small *ngIf="form.get('price')!.hasError('pattern')">Should be only numbers (two number after dot). </small>
-        </div>
-      </div>
-      <div class="form-group mb-3">
-        <label for="category">Category</label>
-        <select
-          id="category"
-          type="number"
-          class="form-control"
-          name="category"
-          formControlName="category"
-        >
-          <option value=""></option>
-          <option *ngFor="let c of categories$ | async" [value]="c.key">{{ c.name }}</option>
-        </select>
-        <div *ngIf="form.get('category')!.touched && form.get('category')!.invalid" class="alert alert-danger">
-          <small *ngIf="form.get('category')!.hasError('required')">Required</small>
-        </div>
-      </div>
-      <div class="form-group mb-3">
-        <uploader [filesFromOldValue]="oldValueImages" (newFilesListFromDrop)="getFilesFromDrop($event)" (backupFilesListFromDrop)="backupFilesFromDrop($event)"></uploader>
-        <div *ngFor="let file of filesForLoading">
-          <upload-task [file]="file" (imageObj)="addImage($event)"></upload-task>
-        </div>
-        <ng-container *ngIf="images$ | async as images">
-          <div *ngIf="images.length > 0">
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let image of images" cdkDrag>
-                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                <product-image-item
-                  [image]="image"
+      </ng-container>
 
-                  (deleteImageName)="deleteImage($event)"
-                ></product-image-item>
-              </div>
+      <mat-accordion>
+        <div class="form-group mb-3">
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Image Upload Block
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <uploader [filesFromOldValue]="oldValueImages" (newFilesListFromDrop)="getFilesFromDrop($event)" (backupFilesListFromDrop)="backupFilesFromDrop($event)"></uploader>
+            <div *ngFor="let file of filesForLoading">
+              <upload-task [file]="file" (imageObj)="addImage($event)"></upload-task>
             </div>
-          </div>
-        </ng-container>
-      </div>
+            <ng-container *ngIf="images$ | async as images">
+              <div *ngIf="images.length > 0">
+                <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let image of images" cdkDrag>
+                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                    <product-image-item
+                      [image]="image"
+                      (deleteImageName)="deleteImage($event)"
+                    ></product-image-item>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+        </div>
+        <div class="form-group mb-3">
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Product Detail Block
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        </div>
+      </mat-accordion>
       <div class="form-group mb-3">
         <button class="btn btn-primary"
                 [disabled]="form.invalid || !isFormChanged">
@@ -94,5 +60,7 @@
   </div>
   <div class="col-md-6">
     <product-card [product]="product" [show-actions]="false"></product-card>
+    <pre>{{ form.value | json }}</pre>
+    <pre>{{ form.valid | json }}</pre>
   </div>
 </div>

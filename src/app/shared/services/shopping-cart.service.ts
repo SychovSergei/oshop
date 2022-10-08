@@ -54,7 +54,7 @@ export class ShoppingCartService {
 
   private async updateProductItem(product: Product, changeNumber: number) {
     let cartId = await this.getOrCreateCartId();
-    let prodItem = this.getItem(cartId, product.key);
+    let prodItem = this.getItem(cartId, product.key!);
     prodItem.snapshotChanges()
       .pipe(take(1))
       .subscribe( item => {

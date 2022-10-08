@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {Product, ProductImage, ProductNew} from "../models/product";
+import {Product, ProductImage} from "../models/product";
 import {map, Observable, take} from "rxjs";
 
 @Injectable()
@@ -8,15 +8,17 @@ export class ProductService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  createEmptyProduct() {
+  createEmptyProduct(category: string) {
     return this.db.list('/products').push({
       dateCreated: new Date().getTime(),
-      isActive: false,
-      title: 'New Product',
-      price: '0',
-      category: 'notAssigned',
+      available: false,
+      title: 'New',
+      price: 0,
+      quantity: 0,
+      description: 'New',
+      category: category,
       images: []
-    });
+    } as Product);
   }
 
   create(product: Product) {
@@ -41,15 +43,6 @@ export class ProductService {
       );
   }
 
-  getAllNotebooks(): Observable<ProductNew[]> {
-    return this.db.list<Product[] | null>('/productsNew/notebooks')
-      .snapshotChanges()
-      .pipe(
-        map(changes => changes
-          .map(c => ({ key: c.key, ...c.payload.toJSON() } as ProductNew))
-        )
-      );
-  }
 
   get(productId: string): Observable<Product> {
     return this.db.object<Product>('/products/' + productId)

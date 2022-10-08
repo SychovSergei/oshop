@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
+import {CategoryGroup} from "../models/category.model";
 
 export interface CategoryList {
   key?: string;
@@ -11,6 +12,11 @@ export interface CategoryList {
 export class CategoryService {
 
   constructor(private db: AngularFireDatabase) { }
+
+  get(): Observable<CategoryGroup[] | null> {
+    return this.db.object<CategoryGroup[]>('/categoryList')
+      .valueChanges()
+  }
 
   getAll() {
     return this.db.list<CategoryList>(

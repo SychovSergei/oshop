@@ -5,17 +5,10 @@
   <div class="col">
     <div class="row">
       <ng-container *ngFor="let product of filteredProducts">
-        <ng-container *ngIf="product.isActive">
+        <ng-container *ngIf="product.available">
           <div class="col-md-6 col-xl-4">
               <product-card [product]="product" [shopping-cart]="cart"></product-card>
           </div>
-        </ng-container>
-      </ng-container>
-      <ng-container *ngIf="productsNew$ | async as newProducts">
-        <ng-container *ngFor="let productNew of newProducts">
-<!--          <div class="col-md-6 col-xl-4">-->
-              <product-card-new [product]="productNew" [shopping-cart]="cart"></product-card-new>
-<!--          </div>-->
         </ng-container>
       </ng-container>
     </div>

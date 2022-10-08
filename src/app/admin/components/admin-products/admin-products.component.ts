@@ -7,6 +7,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {Router} from "@angular/router";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {DialogBoxComponent} from "../../../shared/components/dialog-box/dialog-box.component";
 
 @Component({
   selector: 'app-admin-products',
@@ -25,7 +27,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private _liveAnnouncer: LiveAnnouncer,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
   }
 
@@ -45,6 +48,21 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.subProducts.unsubscribe();
   }
 
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.width = '500px';
+    dialogConfig.disableClose = true;
+
+    const dialogRef = this.dialog.open(DialogBoxComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      this.createNewProduct(result.category);
+    });
+  }
+
   applyFilter(event: KeyboardEvent) {
     this.searchValue = (event.target as HTMLInputElement).value;
     this.products.filter = this.searchValue;
@@ -58,11 +76,14 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  createNewProduct() {
-    this.productService.createEmptyProduct()
-      .then((resId) => {
-        // this.router.navigate(['/admin/products/new'])
-        this.router.navigate([`/admin/products/${resId.key}`])
+  createNewProduct(category: string) {
+    // console.log('createNewProduct', category);
+    this.productService.createEmptyProduct(category)
+      .then((prodId) => {
+        // console.log('prodId', prodId);
+        this.router.navigate([`/admin/products/${prodId.key}`])
       })
+
+        // this.router.navigate(['/admin/products/new'])
   }
 }

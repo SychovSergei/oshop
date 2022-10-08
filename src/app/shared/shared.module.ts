@@ -12,16 +12,28 @@ import {OrderService} from "./services/order.service";
 import {UserService} from "./services/user.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CarouselImageComponent} from "./components/carousel-image/carousel-image.component";
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     ProductCardComponent,
     ProductQuantityComponent,
     CarouselImageComponent,
+    DialogBoxComponent,
   ],
   imports: [
     CommonModule,
     NgbModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports: [
     CommonModule,

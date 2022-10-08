@@ -7,7 +7,8 @@ export class ShoppingCartItem {
   mainImageUrl: string;
   quantity: number;
   dateCreated: number;
-  isActive: boolean;
+  description: string;
+  available: boolean;
   category: string;
   images: ProductImage[];
 

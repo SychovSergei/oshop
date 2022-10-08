@@ -1,6 +1,6 @@
 <div class="card" *ngIf="product">
   <ng-container *ngIf="product.images">
-    <carousel-image [id]="product.key" [images]="convertToArray(product.images)"></carousel-image>
+    <carousel-image [id]="product.key!" [images]="convertToArray(product.images)"></carousel-image>
   </ng-container>
   <div class="card-body">
     <h5 *ngIf="product.title" class="card-title" >{{ product.title }}</h5>

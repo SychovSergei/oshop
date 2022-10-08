@@ -15,7 +15,7 @@ export class ShoppingCart {
   }
 
   getQuantity(product: Product): number {
-    let item = this.items[product.key];
+    let item = this.items[product.key!];
     return item ? item.quantity : 0;
   }
 

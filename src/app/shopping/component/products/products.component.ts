@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, Subscription, switchMap} from "rxjs";
-import {Product, ProductNew} from "../../../shared/models/product";
+import {Subscription, switchMap} from "rxjs";
+import {Product} from "../../../shared/models/product";
 import {ActivatedRoute} from "@angular/router";
 import {ShoppingCartService} from "../../../shared/services/shopping-cart.service";
 import {ShoppingCart} from "../../../shared/models/shopping-cart";
@@ -13,9 +13,7 @@ import {ProductService} from "../../../shared/services/product.service";
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
-  productsNew$: Observable<ProductNew[]>;
   filteredProducts: Product[] = [];
-  filteredProductsNew: ProductNew[] = [];
   category: string;
   cart: ShoppingCart;
   subCart: Subscription;
@@ -48,17 +46,6 @@ export class ProductsComponent implements OnInit {
         this.applyFilter();
       });
 
-    this.productsNew$ = this.productService.getAllNotebooks()
-      // .pipe(
-      //   switchMap((products) => {
-      //     this.productsNew = products;
-      //     return this.route.queryParamMap;
-      //   })
-      // )
-      // .subscribe(params => {
-      //   this.category = params.get('category')!;
-      //   this.applyFilter();
-      // });
   }
 
   private applyFilter() {

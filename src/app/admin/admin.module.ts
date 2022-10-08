@@ -19,6 +19,15 @@ import {ProductImageItemComponent} from "./components/product-form/product-image
 import {FileSizePipe} from "./pipes/file-size.pipe";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+// import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DynamicFormControlComponent } from './components/dynamic-form-control/dynamic-form-control.component';
+import {FormItemControlService} from "./form-item-control.service";
+import {ControlService} from "./components/control.service";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -30,6 +39,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     UploadTaskComponent,
     ProductImageItemComponent,
     FileSizePipe,
+    // DynamicFormComponent,
+    DynamicFormControlComponent,
   ],
   imports: [
     AdminRoutingModule,
@@ -43,6 +54,11 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatListModule,
     DragDropModule,
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatExpansionModule,
   ],
   exports: [
     AdminProductsComponent,
@@ -51,7 +67,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   ],
   providers: [
     AdminAuthGuard,
-    FileSizePipe
+    FileSizePipe,
+    FormItemControlService,
+    ControlService
   ]
 })
 export class AdminModule { }

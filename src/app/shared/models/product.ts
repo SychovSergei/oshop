@@ -1,26 +1,12 @@
 export interface Product {
-  key: string;
+  key?: string;
   dateCreated: number;
-  isActive: boolean;
+  description: string;
+  available: boolean;
+  quantity: number;
   title: string;
   price: number;
   category: string;
-  images: ProductImage[];
-}
-
-export interface ProductNew {
-  key: string;
-  category: string;
-  characteristics: {
-    diagonal: string;
-    screen_refresh_rate: number;
-    screen_resolution: string;
-    type_screen: string;
-  };
-  dateCreated: number;
-  isActive: boolean;
-  price: number;
-  title: string;
   images: ProductImage[];
 }
 
@@ -31,4 +17,29 @@ export interface ProductImage {
   lastModified: number;
   type: string;
   url: string;
+}
+
+export interface Notebooks extends Product{
+  characteristics: {
+    screen: {
+      diagonal: string;
+      type: string;
+      refresh_rate: number;
+      resolution: string;
+      integrated_camera: string;
+    },
+    processor: {
+      cpu: string;
+      operating_system: number;
+      generation: string;
+    },
+    ram: {
+      type: string;
+      slots_number: number;
+      volume: string;
+    },
+    data_drivers: {
+      ssd_capacity: string;
+    }
+  };
 }

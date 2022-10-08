@@ -1,5 +1,6 @@
 <p>
-  <button mat-raised-button type="button" color="primary" (click)="createNewProduct()">New Product</button>
+<!--  (click)="createNewProduct()"-->
+  <button mat-raised-button type="button" color="primary" (click)="openDialog()">New Product</button>
 </p>
 <p>
   <input
@@ -19,7 +20,7 @@
     <ng-container matColumnDef="isActive">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="isActive" sortActionDescription="Sort by Active"> Active </th>
       <td mat-cell *matCellDef="let element">
-        <mat-slide-toggle [checked]="element.isActive" [disabled]="true"></mat-slide-toggle>
+        <mat-slide-toggle [checked]="element.available" [disabled]="true"></mat-slide-toggle>
       </td>
     </ng-container>
     <ng-container matColumnDef="category">

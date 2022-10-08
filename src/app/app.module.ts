@@ -20,6 +20,7 @@ import {SharedModule} from "./shared/shared.module";
 import {AdminModule} from "./admin/admin.module";
 import {ShoppingModule} from "./shopping/shopping.module";
 import {CoreModule} from "./core/core.module";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {CoreModule} from "./core/core.module";
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,
+    MatDialogModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
