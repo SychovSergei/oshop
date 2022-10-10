@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {CheckOutComponent} from "./component/check-out/check-out.component";
 import {MyOrdersComponent} from "./component/my-orders/my-orders.component";
 import {OrderSuccessComponent} from "./component/order-success/order-success.component";
