@@ -53,7 +53,6 @@ export class ProductCardNewComponent implements OnInit {
         res[Number(key)] = imagesObj[key];
       }
     }
-    console.log(res)
     return res;
   }
 
