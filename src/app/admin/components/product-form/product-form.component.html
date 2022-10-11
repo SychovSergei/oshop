@@ -6,7 +6,6 @@
           <dynamic-form-control [control]="control"></dynamic-form-control>
         </div>
       </ng-container>
-
       <mat-accordion>
         <div class="form-group mb-3">
           <mat-expansion-panel (opened)="panelOpenState = true"
@@ -59,8 +58,6 @@
     </form>
   </div>
   <div class="col-md-6">
-    <product-card [product]="product" [show-actions]="false"></product-card>
-    <pre>{{ form.value | json }}</pre>
-    <pre>{{ form.valid | json }}</pre>
+    <product-card-new [product]="product"></product-card-new>
   </div>
 </div>

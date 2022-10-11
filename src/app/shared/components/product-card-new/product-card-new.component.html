@@ -1,0 +1,60 @@
+<mat-card class="card" *ngIf="product">
+  <div class="top-info-group">
+    <ng-container>
+      <span class="info-discount" *ngIf="product.discount > 0">-{{ product.discount }}%</span>
+  <!--    <span class="info-top">TOP</span>-->
+  <!--    <span class="info-new">NEW</span>-->
+    </ng-container>
+  </div>
+  <div class="action-group">
+    <button type="button" class="wish-button icon-orange">
+      <mat-icon>favorite_border</mat-icon>
+<!--      <mat-icon>favorite</mat-icon>-->
+    </button>
+  </div>
+  <div class="img-group" [ngClass]="{'not-available': product.quantity == 0}">
+    <a href="" class="">
+      <ng-container *ngIf="product.images">
+        <img mat-card-image [src]="getImgUrl(product.images)" alt="Photo of a Shiba Inu">
+      </ng-container>
+    </a>
+  </div>
+  <mat-card-content>
+    <div class="card-title" [ngClass]="{'not-available': product.quantity == 0}">
+      <a href="">{{ product.title }}</a>
+    </div>
+    <div class="rating-group">
+      <ngx-star-rating class="rating-stars" [id]="product.key!"><!--formControlName="rating"--></ngx-star-rating>
+      <a href="">Reviews(0)</a>
+    </div>
+    <div class="prices" [ngClass]="{'not-available': product.quantity == 0}">
+      <div class="old-price"><span *ngIf="product.discount > 0">{{ product.price | currency: "USD" }}</span></div>
+      <div class="price-group">
+        <div class="price price-red">{{ getPrice() | currency: "USD"}}</div>
+        <ng-container *ngIf="shoppingCart">
+          <button mat-button type="button"
+                  [disabled]="product.quantity == 0"
+                  color="primary"
+                  *ngIf="shoppingCart.getQuantity(product) === 0; else fullCart"
+                  (click)="addToCart()">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+          <ng-template #fullCart>
+            <button mat-button type="button"
+                    [disabled]="product.quantity == 0"
+                    color="primary"
+                    (click)="goToCart()">
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+    <div class="status">
+      <span *ngIf="product.quantity > 0; else notAvailable">Ready to ship</span>
+      <ng-template #notAvailable>
+        <span>Not available</span>
+      </ng-template>
+    </div>
+  </mat-card-content>
+</mat-card>

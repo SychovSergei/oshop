@@ -2,6 +2,7 @@ export interface Product {
   key?: string;
   dateCreated: number;
   description: string;
+  discount: number;
   available: boolean;
   quantity: number;
   title: string;

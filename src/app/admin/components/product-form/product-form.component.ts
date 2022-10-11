@@ -89,6 +89,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         this.form.get('available')?.patchValue(prod.available);
         this.form.get('quantity')?.patchValue(prod.quantity);
         this.form.get('description')?.patchValue(prod.description);
+        this.form.get('discount')?.patchValue(prod.discount);
         this.form.get('price')?.patchValue(prod.price ? prod.price : '0');
         this.form.get('category')?.patchValue(prod.category);
 
@@ -112,6 +113,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
           || this.oldValue.price !== val.price
           || this.oldValue.quantity !== val.quantity
           || this.oldValue.description !== val.description
+          || this.oldValue.discount !== val.discount
           || this.oldValue.category !== val.category
           || !this.isEqualNameItemArrays(this.oldValueImages, val.images);
       }

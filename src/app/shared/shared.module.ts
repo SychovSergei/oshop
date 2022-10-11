@@ -18,6 +18,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
+import {ProductCardNewComponent} from "./components/product-card-new/product-card-new.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     ProductQuantityComponent,
     CarouselImageComponent,
     DialogBoxComponent,
+    ProductCardNewComponent
   ],
   imports: [
     CommonModule,
@@ -33,13 +38,18 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatIconModule,
+    NgxStarRatingModule
   ],
   exports: [
     CommonModule,
     ProductCardComponent,
     ProductQuantityComponent,
     NgbModule,
+    ProductCardNewComponent,
+    NgxStarRatingModule
   ],
   providers: [
     AuthService,

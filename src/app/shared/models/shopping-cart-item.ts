@@ -8,6 +8,7 @@ export class ShoppingCartItem {
   quantity: number;
   dateCreated: number;
   description: string;
+  discount: number;
   available: boolean;
   category: string;
   images: ProductImage[];

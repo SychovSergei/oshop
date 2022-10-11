@@ -15,6 +15,7 @@ export class ProductService {
       title: 'New',
       price: 0,
       quantity: 0,
+      discount: 0,
       description: 'New',
       category: category,
       images: []
