@@ -21,6 +21,7 @@ import {AdminModule} from "./admin/admin.module";
 import {ShoppingModule} from "./shopping/shopping.module";
 import {CoreModule} from "./core/core.module";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
     ReactiveFormsModule,
+    MatSidenavModule,
   ],
   providers: [
     AdminAuthGuard

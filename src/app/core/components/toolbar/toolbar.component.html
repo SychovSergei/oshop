@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row
+    style="max-width: 1320px; margin: 0 auto"
+  >
+    <button mat-icon-button class="icon" (click)="openSideNav()" aria-label="Open menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="logo" routerLink="/">Oshop</a>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="icon" aria-label="Open login or register dialog">
+      <mat-icon class="user-reg-circle-icon" svgIcon="user-circle-reg"></mat-icon>
+    </button>
+    <a mat-icon-button class="icon" aria-label="Open wish products page">
+      <mat-icon class="heart-reg-icon" svgIcon="heart-reg" matBadge="10" matBadgeOverlap="true" matBadgePosition="above after" matBadgeColor="warn"></mat-icon>
+    </a>
+    <a *ngIf="cart$ | async as cart" mat-icon-button routerLink="/shopping-cart" class="icon" aria-label="Open shopping cart page">
+      <mat-icon class="cart-reg-icon" svgIcon="cart-reg"
+                [matBadge]="cart.totalItemsCount"
+                matBadgeOverlap="true"
+                matBadgePosition="above after"
+                matBadgeColor="warn"
+                [matBadgeHidden]="this.cart.totalItemsCount < 1"
+      ></mat-icon>
+    </a>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+
+

@@ -4,3 +4,25 @@ bs-navbar.sticky-top {
 .main {
   margin-top: 15px;
 }
+.sticky-top-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+.side-nav-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px;
+  margin-top: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom:1.5rem;
+  border-top: 1px solid #dee2e6;
+}

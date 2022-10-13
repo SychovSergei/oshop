@@ -10,12 +10,14 @@ import {UserService} from "./shared/services/user.service";
 })
 export class AppComponent {
   title = 'oshop';
+  sideNavOpened: boolean;
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
     router: Router,
     ) {
+    this.sideNavOpened = false;
     authService.user$.subscribe(user => {
       if (!user) return;
 
@@ -27,5 +29,9 @@ export class AppComponent {
       localStorage.removeItem('returnUrl');
       router.navigateByUrl(returnUrl!);
     })
+  }
+
+  openSideNav(event: boolean) {
+    this.sideNavOpened = event;
   }
 }

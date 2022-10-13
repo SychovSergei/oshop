@@ -1,0 +1,25 @@
+a.logo {
+  text-decoration: none;
+  color: white;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.icon {
+  border-radius: 2px;
+  margin: 0 2px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .cart-reg-icon,
+  .user-reg-circle-icon,
+  .heart-reg-icon {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+}

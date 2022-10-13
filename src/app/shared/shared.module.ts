@@ -20,8 +20,12 @@ import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ProductCardNewComponent} from "./components/product-card-new/product-card-new.component";
 import {MatCardModule} from "@angular/material/card";
-import {MatIconModule} from "@angular/material/icon";
+import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import{ FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import {MatBadgeModule} from "@angular/material/badge";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -40,8 +44,13 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     MatFormFieldModule,
     MatSelectModule,
     MatCardModule,
+    MatToolbarModule,
+    NgxStarRatingModule,
+    MatBadgeModule,
+
+    HttpClientModule,
     MatIconModule,
-    NgxStarRatingModule
+    FontAwesomeModule,
   ],
   exports: [
     CommonModule,
@@ -49,7 +58,15 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     ProductQuantityComponent,
     NgbModule,
     ProductCardNewComponent,
-    NgxStarRatingModule
+    NgxStarRatingModule,
+    MatToolbarModule,
+    MatButtonModule,
+    FontAwesomeModule,
+    MatBadgeModule,
+    ReactiveFormsModule,
+
+    MatIconModule,
+    HttpClientModule,
   ],
   providers: [
     AuthService,
@@ -59,6 +76,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     ProductService,
     ShoppingCartService,
     UserService,
+
+    MatIconRegistry
   ]
 })
 export class SharedModule { }
