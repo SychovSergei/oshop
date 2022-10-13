@@ -7,7 +7,6 @@ import {ProductFilterComponent} from "./component/products/product-filter/produc
 import {ShippingFormComponent} from "./component/shipping-form/shipping-form.component";
 import {ShoppingCartComponent} from "./component/shopping-cart/shopping-cart.component";
 import {ShoppingCartSummaryComponent} from "./component/shopping-cart-summary/shopping-cart-summary.component";
-import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {ShoppingRoutingModule} from "./shopping-routing.module";
 import {ImageThumbComponent} from "./component/image-thumb/image-thumb.component";
@@ -28,7 +27,6 @@ import {MatCardModule} from "@angular/material/card";
   exports: [],
   imports: [
     SharedModule,
-    ReactiveFormsModule,
     ShoppingRoutingModule,
     MatCardModule
   ]
