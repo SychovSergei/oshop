@@ -26,6 +26,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import{ FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import {MatBadgeModule} from "@angular/material/badge";
 import {HttpClientModule} from "@angular/common/http";
+import {LayoutModule} from "@angular/cdk/layout";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -47,10 +49,12 @@ import {HttpClientModule} from "@angular/common/http";
     MatToolbarModule,
     NgxStarRatingModule,
     MatBadgeModule,
+    MatExpansionModule,
 
     HttpClientModule,
     MatIconModule,
     FontAwesomeModule,
+    LayoutModule,
   ],
   exports: [
     CommonModule,
@@ -64,6 +68,7 @@ import {HttpClientModule} from "@angular/common/http";
     FontAwesomeModule,
     MatBadgeModule,
     ReactiveFormsModule,
+    MatExpansionModule,
 
     MatIconModule,
     HttpClientModule,
