@@ -9,6 +9,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MatSelectModule} from "@angular/material/select";
     HomeComponent,
     LoginComponent,
     ToolbarComponent,
-    SideNavComponent
+    SideNavComponent,
+    FooterComponent
   ],
   imports: [
     SharedModule,
@@ -28,7 +30,8 @@ import {MatSelectModule} from "@angular/material/select";
   exports: [
     BsNavbarComponent,
     ToolbarComponent,
-    SideNavComponent
+    SideNavComponent,
+    FooterComponent
   ]
 })
 
