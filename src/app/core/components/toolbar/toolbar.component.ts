@@ -1,15 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-// import { faUser as regUser } from '@fortawesome/free-regular-svg-icons';
-// import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-// import { faUser as solUser } from '@fortawesome/free-solid-svg-icons';
-// import { FaIconLibrary} from "@fortawesome/angular-fontawesome";
 import { MatIconRegistry } from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ShoppingCartService} from "../../../shared/services/shopping-cart.service";
 import {Observable} from "rxjs";
 import {ShoppingCart} from "../../../shared/models/shopping-cart";
-import {AuthService} from "../../../shared/services/auth.service";
-import {AppUser} from "../../../shared/models/app-user";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-toolbar',
@@ -19,12 +14,13 @@ import {AppUser} from "../../../shared/models/app-user";
 export class ToolbarComponent implements OnInit {
   @Output() sideNavOpen = new EventEmitter<boolean>();
 
-  appUser: AppUser | null;
   cart$: Observable<ShoppingCart>;
 
+  isXSmall: boolean;
+
   constructor(
-    private authService: AuthService,
     private cartService: ShoppingCartService,
+    private responsive: BreakpointObserver,
     matIconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
@@ -37,9 +33,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.authService.appUser$.subscribe(appUser => {
-      this.appUser = appUser;
-      console.log(this.appUser)
+    this.responsive.observe([Breakpoints.XSmall]).subscribe((res) => {
+      this.isXSmall = res.matches;
     });
     this.cart$ = (await this.cartService.getCart());
   }
