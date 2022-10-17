@@ -19,14 +19,11 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-    localStorage.setItem('returnUrl', returnUrl);
-
-    this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logOut() {
-    this.afAuth.signOut();
+    return this.afAuth.signOut();
   }
 
   get appUser$(): Observable<AppUser | null> {
