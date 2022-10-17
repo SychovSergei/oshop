@@ -19,7 +19,11 @@
   top: 0;
   width: 280px;
 }
-
+.side-nav-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .sticky-top-toolbar {
   position: fixed;
   top: 0;
