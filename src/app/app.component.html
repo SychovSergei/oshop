@@ -110,15 +110,11 @@
   </mat-sidenav>
   <mat-sidenav-content class="side-nav-content">
 
+    <app-toolbar (sideNavOpen)="openSideNav($event)" class="sticky-top-toolbar"></app-toolbar>
 
-
-  <app-toolbar (sideNavOpen)="openSideNav($event)" class="sticky-top-toolbar"></app-toolbar>
-<!--  <bs-navbar class="sticky-top"></bs-navbar>-->
-
-  <main class="main">
-    <router-outlet></router-outlet>
-  </main>
-
+    <main class="main">
+      <router-outlet></router-outlet>
+    </main>
 
     <app-footer></app-footer>
 
