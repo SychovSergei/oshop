@@ -1,18 +1,34 @@
-bs-navbar.sticky-top {
-  z-index: 1100;
+@mixin icon-set-reg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1;
+  stroke: #fff;
 }
-.main {
-  margin-top: 15px;
+@mixin icon-set-reg-white {
+  stroke: #ffffff;
 }
-.sticky-top-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 1200;
+@mixin icon-set-reg-grey {
+  stroke: #4c4c4c;
 }
-
 
 .side-nav-bar {
-  width: 300px;
+  position: fixed;
+  top: 0;
+  width: 280px;
+}
+
+.sticky-top-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.main {
+  margin-top: calc(64px + 15px); // toolbar height + margin-top
 }
 
 .side-nav__header {
@@ -31,21 +47,6 @@ bs-navbar.sticky-top {
   }
 }
 
-@mixin icon-set-reg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1;
-  stroke: #fff;
-}
-@mixin icon-set-reg-white {
-  stroke: #ffffff;
-}
-@mixin icon-set-reg-grey {
-  stroke: #4c4c4c;
-}
 
 .side-nav__body{
   display: flex;
@@ -176,12 +177,5 @@ bs-navbar.sticky-top {
       }
     }
   }
-}
-
-
-.side-nav-content {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
