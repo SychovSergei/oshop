@@ -1,5 +1,5 @@
 .card {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   transition: all .2s ease-in-out;
 
   .not-available {
@@ -119,8 +119,6 @@
 
     }
 
-
-
     .reviews-link {
       display: flex;
       flex-direction: row;
@@ -154,12 +152,5 @@
     }
   }
 
-  .status {
-
-  }
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
