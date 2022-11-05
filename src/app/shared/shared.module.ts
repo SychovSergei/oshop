@@ -28,6 +28,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {HttpClientModule} from "@angular/common/http";
 import {LayoutModule} from "@angular/cdk/layout";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatIconModule,
     FontAwesomeModule,
     LayoutModule,
+    MatInputModule
   ],
   exports: [
     CommonModule,
@@ -69,9 +71,10 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatBadgeModule,
     ReactiveFormsModule,
     MatExpansionModule,
-
+    MatDialogModule,
     MatIconModule,
     HttpClientModule,
+    MatInputModule
   ],
   providers: [
     AuthService,

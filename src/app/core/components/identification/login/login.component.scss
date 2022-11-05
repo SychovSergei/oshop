@@ -1,0 +1,31 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 0;
+
+  .form-field {
+    margin-bottom: .5rem;
+  }
+  a.restore-button {
+    font-size: .9rem;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 1rem;
+    padding: 3px 8px;
+    margin-left: auto;
+    text-align: right;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  button.switch-button {
+    margin-top: 1rem;
+  }
+}
+
+.big-button {
+  font-size: large;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
+}

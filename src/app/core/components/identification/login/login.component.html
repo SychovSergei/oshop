@@ -1,0 +1,35 @@
+<form class="form" [formGroup]="form">
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input matInput
+           type="email"
+           formControlName="email"
+           id="email">
+    <mat-error *ngIf="form.get('email')!.hasError('required')">Email required</mat-error>
+    <mat-error *ngIf="form.get('email')!.hasError('email')">Email invalid</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input matInput
+           formControlName="password"
+           [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="form.get('password')!.hasError('required')">Password ERROR</mat-error>
+    <mat-error *ngIf="form.get('password')!.hasError('minlength')">Password Minlength</mat-error>
+  </mat-form-field>
+  <a class="restore-button"
+        (click)="switchToResetPassword($event)"
+  >Reset Password</a>
+  <button mat-raised-button color="primary"
+          class="big-button"
+          [disabled]="form.invalid"
+          (click)="login()"
+  >Login</button>
+  <button type="button"
+          mat-flat-button
+          class="switch-button"
+          (click)="switchToRegister()"
+          >Register</button>
+</form>

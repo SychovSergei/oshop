@@ -1,0 +1,27 @@
+.auth-dialog-xs {
+  display: flex;
+  flex-direction: column;
+  .auth-form {
+    margin-bottom: 1.5rem;
+  }
+}
+.auth-dialog-large {
+  display: flex;
+  flex-direction: row;
+  .auth-form {
+    margin-right: 20px;
+    width: 60%;
+  }
+  .auth-social {
+    width: 40%;
+  }
+}
+
+.close.mat-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 8px;
+  line-height: 14px;
+  min-width: auto;
+}

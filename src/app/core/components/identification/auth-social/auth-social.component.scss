@@ -1,0 +1,24 @@
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .social-button {
+    width: 100%;
+    padding: 8px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    line-height: 20px;
+  }
+  .icon-item {
+    width: 24px;
+    height: 24px;
+  }
+  .social-text {
+    margin-left: 5px;
+  }
+}
