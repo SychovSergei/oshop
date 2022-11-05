@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import firebase from "firebase/compat";
 import {AuthService} from "../../../shared/services/auth.service";
@@ -16,6 +16,7 @@ import {UserService} from "../../../shared/services/user.service";
   styleUrls: ['./auth-avatar.component.scss']
 })
 export class AuthAvatarComponent implements OnInit {
+  @Output() success = new EventEmitter<boolean>();
   user$: Observable<firebase.User | null>
   url: string | undefined;
   isXSmall: boolean;
@@ -56,7 +57,9 @@ export class AuthAvatarComponent implements OnInit {
     let dialogRef: MatDialogRef<IdentificationComponent> =
       this.dialog.open(IdentificationComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(() => {});
+    dialogRef.afterClosed().subscribe(() => {
+      this.success.emit(true);
+    });
 
   }
 
