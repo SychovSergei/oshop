@@ -73,3 +73,24 @@ ul {
   width: calc(100%/5);
   padding: 0 5px;
 }
+
+.fullscreen-auth-dialog {
+  position: relative !important;
+  max-width: 100% !important;
+  max-height: 100vh;
+  width: 100% !important;
+  height: 100%;
+  .mat-dialog-container {
+    //padding: 5px;
+  }
+  .mat-dialog-content {
+    max-height: 100%;
+  }
+}
+.cdk-overlay-pane.auth-dialog {
+  position: relative !important;
+  width: 100%;
+  .mat-dialog-container {
+    //padding: 5px;
+  }
+}

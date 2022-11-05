@@ -7,9 +7,24 @@
 
     <span class="spacer"></span>
 
-    <button *ngIf="!isXSmall" mat-icon-button class="icon" aria-label="Open login or register dialog">
-      <mat-icon class="user-reg-circle-icon" svgIcon="user-circle-reg"></mat-icon>
-    </button>
+    <ng-container  *ngIf="user$ | async; else anon">
+      <a *ngIf="!isXSmall"
+              mat-icon-button
+              class="icon"
+              aria-label="Open login or register dialog"
+              routerLink="/cabinet">
+        <mat-icon class="user-reg-circle-icon" svgIcon="user-circle-reg"></mat-icon>
+      </a>
+    </ng-container>
+    <ng-template #anon>
+      <button *ngIf="!isXSmall"
+              mat-icon-button
+              class="icon"
+              aria-label="Open login or register dialog"
+              (click)="openDialog('login')">
+        <mat-icon class="user-reg-circle-icon" svgIcon="user-circle-reg"></mat-icon>
+      </button>
+    </ng-template>
     <a *ngIf="!isXSmall" mat-icon-button class="icon" aria-label="Open wish products page">
       <mat-icon class="heart-reg-icon"
                 svgIcon="heart-reg"

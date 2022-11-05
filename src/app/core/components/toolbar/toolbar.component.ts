@@ -5,6 +5,10 @@ import {ShoppingCartService} from "../../../shared/services/shopping-cart.servic
 import {Observable} from "rxjs";
 import {ShoppingCart} from "../../../shared/models/shopping-cart";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {IdentificationComponent} from "../identification/identification.component";
+import firebase from "firebase/compat";
+import {AuthService} from "../../../shared/services/auth.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -13,16 +17,18 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 })
 export class ToolbarComponent implements OnInit {
   @Output() sideNavOpen = new EventEmitter<boolean>();
-
+  user$: Observable<firebase.User | null>
   cart$: Observable<ShoppingCart>;
 
   isXSmall: boolean;
 
   constructor(
+    private authService: AuthService,
     private cartService: ShoppingCartService,
     private responsive: BreakpointObserver,
     matIconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
+    sanitizer: DomSanitizer,
+    public dialog: MatDialog
   ) {
     matIconRegistry.addSvgIcon("cart-reg",
       sanitizer.bypassSecurityTrustResourceUrl("assets/icons/cart-reg.svg"));
@@ -33,6 +39,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.user$ = this.authService.user$;
     this.responsive.observe([Breakpoints.XSmall]).subscribe((res) => {
       this.isXSmall = res.matches;
     });
@@ -42,4 +49,24 @@ export class ToolbarComponent implements OnInit {
   openSideNav() {
     this.sideNavOpen.emit(true);
   }
+
+  openDialog(initial: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      dialogName: initial,
+    };
+
+    if (this.isXSmall) {
+      dialogConfig.panelClass = 'fullscreen-auth-dialog';
+    } else {
+      dialogConfig.panelClass = 'auth-dialog';
+    }
+
+    const dialogRef = this.dialog.open(IdentificationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {});
+  }
+
 }
