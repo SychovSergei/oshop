@@ -28,8 +28,8 @@
 .info-block {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
 
   p {
     //font-size: .9rem;
@@ -46,6 +46,6 @@
 .button-group {
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
