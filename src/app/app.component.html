@@ -31,8 +31,8 @@
           </a>
         </li>
       </ul>
-      <ng-container *ngIf="appUser$ | async as appUser">
-        <ng-container *ngIf="appUser.isAdmin">
+      <ng-container *ngIf="user$ | async as user">
+        <ng-container *ngIf="user.isAdmin">
           <ul class="side-nav__list">
             <li class="side-nav__list-item">
               <a class="side-nav__button" routerLink="/admin/orders" (click)="sideNavOpened = false">
