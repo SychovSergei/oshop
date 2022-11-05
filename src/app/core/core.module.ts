@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {BsNavbarComponent} from "./components/bs-navbar/bs-navbar.component";
+import { AuthAvatarComponent } from './components/auth-avatar/auth-avatar.component';
 import {HomeComponent} from "./components/home/home.component";
 import {LoginComponent} from "./components/login/login.component";
 import {RouterModule} from "@angular/router";
@@ -13,7 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    BsNavbarComponent,
+    AuthAvatarComponent,
     HomeComponent,
     LoginComponent,
     ToolbarComponent,
@@ -28,7 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MatSelectModule
   ],
   exports: [
-    BsNavbarComponent,
+    AuthAvatarComponent,
     ToolbarComponent,
     SideNavComponent,
     FooterComponent
