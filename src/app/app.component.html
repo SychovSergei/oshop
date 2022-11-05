@@ -6,28 +6,7 @@
     </div>
     <div class="side-nav__body">
       <div class="side-nav__auth">
-        <ng-container *ngIf="user$ | async as user; else anonymous">
-          <a routerLink="/cabinet" class="avatar-block">
-            <div class="side-nav__auth-avatar">
-              <img [src]="user.photoURL" [alt]="user.displayName">
-            </div>
-            <div class="side-nav__auth-content">
-              <div class="name">{{ user.displayName }}</div>
-              <div class="email">{{ user.email }}</div>
-            </div>
-          </a>
-        </ng-container>
-        <ng-template #anonymous>
-          <div class="avatar-block">
-            <div class="side-nav__auth-avatar">
-              <mat-icon class="circle-reg-icon" svgIcon="user-circle-reg"></mat-icon>
-            </div>
-            <div class="side-nav__auth-content">
-              <button type="button" class="side-nav__auth-button" (click)="login()">LogIn</button> or
-              <button type="button" class="side-nav__auth-button" (click)="register()">Register</button>
-            </div>
-          </div>
-        </ng-template>
+        <app-auth-avatar (success)="sideNavOpened = false"></app-auth-avatar>
       </div>
       <ul class="side-nav__list">
         <li class="side-nav__list-item">
