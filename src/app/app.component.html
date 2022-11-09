@@ -91,7 +91,9 @@
 
     <app-toolbar class="sticky-top-toolbar" (sideNavOpen)="openSideNav($event)"></app-toolbar>
     <main class="main">
-      <router-outlet></router-outlet>
+      <div class="layout">
+        <router-outlet></router-outlet>
+      </div>
     </main>
     <app-footer></app-footer>
 

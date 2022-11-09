@@ -15,7 +15,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin: 0 auto;
   max-width: 1600px;
   width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
 }
+@media (min-width: 768px) {
+  .layout {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .layout {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 1280px) {
+  .layout {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
 .layout-with-sidebar {
   display: flex;
 }
