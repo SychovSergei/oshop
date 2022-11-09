@@ -29,6 +29,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {LayoutModule} from "@angular/cdk/layout";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatInputModule} from "@angular/material/input";
+import {WishListService} from "./services/wish-list.service";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {MatInputModule} from "@angular/material/input";
     ShoppingCartService,
     UserService,
 
-    MatIconRegistry
+    MatIconRegistry,
+    WishListService
   ]
 })
 export class SharedModule { }

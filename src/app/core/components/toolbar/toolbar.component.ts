@@ -9,6 +9,8 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {IdentificationComponent} from "../identification/identification.component";
 import firebase from "firebase/compat";
 import {AuthService} from "../../../shared/services/auth.service";
+import {WishListService} from "../../../shared/services/wish-list.service";
+import {WishList} from "../../../shared/models/wish-list";
 
 @Component({
   selector: 'app-toolbar',
@@ -19,12 +21,14 @@ export class ToolbarComponent implements OnInit {
   @Output() sideNavOpen = new EventEmitter<boolean>();
   user$: Observable<firebase.User | null>
   cart$: Observable<ShoppingCart>;
+  wishList$: Observable<WishList>;
 
   isXSmall: boolean;
 
   constructor(
     private authService: AuthService,
     private cartService: ShoppingCartService,
+    private wishListService: WishListService,
     private responsive: BreakpointObserver,
     matIconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -44,6 +48,7 @@ export class ToolbarComponent implements OnInit {
       this.isXSmall = res.matches;
     });
     this.cart$ = (await this.cartService.getCart());
+    this.wishList$ = this.wishListService.getWishList();
   }
 
   openSideNav() {

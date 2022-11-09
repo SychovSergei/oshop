@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable, Subscription, switchMap, tap} from "rxjs";
+import {Subscription, switchMap} from "rxjs";
 import {Product} from "../../../shared/models/product";
 import {ActivatedRoute} from "@angular/router";
 import {ShoppingCartService} from "../../../shared/services/shopping-cart.service";
 import {ShoppingCart} from "../../../shared/models/shopping-cart";
 import {ProductService} from "../../../shared/services/product.service";
-import {BreakpointObserver, BreakpointState, Breakpoints} from "@angular/cdk/layout";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {WishListService} from "../../../shared/services/wish-list.service";
+import {WishList} from "../../../shared/models/wish-list";
 
 @Component({
   selector: 'app-products',
@@ -17,7 +19,9 @@ export class ProductsComponent implements OnInit {
   filteredProducts: Product[] = [];
   category: string;
   cart: ShoppingCart;
+  wishList: WishList;
   subCart: Subscription;
+  subWish: Subscription;
 
   isWideScreen: boolean;
   isXLarge: boolean;
@@ -32,6 +36,7 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: ShoppingCartService,
+    private wishListService: WishListService,
     private responsive: BreakpointObserver
   ) {}
 
@@ -55,10 +60,13 @@ export class ProductsComponent implements OnInit {
     this.responsive.observe([Breakpoints.XSmall]).subscribe((res) => {
       this.isXSmall = res.matches;
     });
-    // .pipe(tap((mmm) => {console.log('State', mmm)}))
 
     this.subCart =(await this.cartService.getCart())
       .subscribe(cart => {this.cart = cart;})
+
+    this.subWish = this.wishListService.getWishList()
+      .subscribe((list) => { this.wishList = list; });
+
     this.populateProducts();
   }
 
@@ -86,6 +94,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subCart.unsubscribe();
+    this.subWish.unsubscribe();
   }
 
 }

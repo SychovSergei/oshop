@@ -3,6 +3,14 @@ import {Product, ProductImage} from "../../models/product";
 import {ShoppingCart} from "../../models/shopping-cart";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {Router} from "@angular/router";
+import {WishListService} from "../../services/wish-list.service";
+import {AuthService} from "../../services/auth.service";
+import {Observable} from "rxjs";
+import firebase from "firebase/compat";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {IdentificationComponent} from "../../../core/components/identification/identification.component";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {WishList} from "../../models/wish-list";
 
 @Component({
   selector: 'product-card-new',
@@ -13,15 +21,27 @@ import {Router} from "@angular/router";
 export class ProductCardNewComponent implements OnInit {
   @Input('product') product: Product;
   @Input('shopping-cart') shoppingCart: ShoppingCart;
+  @Input('wish-list') wList: WishList;
 
   private imgDefaultUrl: string;
+  user$: Observable<firebase.User | null>;
+  isXSmall: boolean;
 
   constructor(
+    private authService: AuthService,
     private cartService: ShoppingCartService,
-    private router: Router
+    private responsive: BreakpointObserver,
+    private wishlistService: WishListService,
+    private router: Router,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
+    this.user$ = this.authService.user$;
+
+    this.responsive.observe([Breakpoints.XSmall]).subscribe((res) => {
+      this.isXSmall = res.matches;
+    });
     if (!!this.product) {
       if (this.product.images === undefined) {
         this.product.images = [];
@@ -60,4 +80,28 @@ export class ProductCardNewComponent implements OnInit {
     const arr = this.objToArray(productImages);
     return arr.length > 0 ? arr[0].url : this.imgDefaultUrl;
   }
+
+  updWishlist() {
+    this.wishlistService.updateWishList(this.product);
+  }
+
+  openDialog(initial: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.disableClose = false;
+    dialogConfig.data = {
+      dialogName: initial,
+    };
+
+    if (this.isXSmall) {
+      dialogConfig.panelClass = 'fullscreen-auth-dialog';
+    } else {
+      dialogConfig.panelClass = 'auth-dialog';
+    }
+
+    const dialogRef = this.dialog.open(IdentificationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {});
+  }
+
 }

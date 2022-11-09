@@ -115,7 +115,7 @@
           }"
           *ngFor="let product of products">
         <ng-container *ngIf="product.available">
-          <product-card-new [product]="product" [shopping-cart]="cart"></product-card-new>
+          <product-card-new [product]="product" [shopping-cart]="cart" [wish-list]="wishList"></product-card-new>
         </ng-container>
       </li>
     </ul>

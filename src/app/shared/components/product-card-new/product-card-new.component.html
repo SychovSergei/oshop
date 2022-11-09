@@ -7,10 +7,21 @@
     </ng-container>
   </div>
   <div class="action-group">
-    <button type="button" class="wish-button icon-orange">
-      <mat-icon>favorite_border</mat-icon>
-<!--      <mat-icon>favorite</mat-icon>-->
-    </button>
+    <ng-container  *ngIf="user$ | async; else anon">
+        <button type="button" class="wish-button icon-orange"
+                (click)="updWishlist()">
+          <ng-container *ngIf="wList">
+            <mat-icon *ngIf="wList.isOnList(product)">favorite</mat-icon>
+            <mat-icon *ngIf="!wList.isOnList(product)">favorite_border</mat-icon>
+          </ng-container>
+        </button>
+    </ng-container>
+    <ng-template #anon>
+      <button type="button" class="wish-button icon-orange"
+              (click)="openDialog('login')">
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+    </ng-template>
   </div>
   <div class="img-group" [ngClass]="{'not-available': product.quantity == 0}">
     <a href="" class="">
