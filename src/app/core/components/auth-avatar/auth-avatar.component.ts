@@ -63,4 +63,7 @@ export class AuthAvatarComponent implements OnInit {
 
   }
 
+  closeSideNav() {
+    this.success.emit(true);
+  }
 }

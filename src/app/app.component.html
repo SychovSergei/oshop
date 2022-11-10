@@ -1,7 +1,7 @@
 <mat-sidenav-container>
   <mat-sidenav class="side-nav-bar" [(opened)]="sideNavOpened">
     <div class="side-nav__header">
-      <a class="logo" routerLink="/">Oshop</a>
+      <a class="logo" routerLink="/" (click)="sideNavOpened = false">Oshop</a>
       <button type="button" class="btn-close" (click)="sideNavOpened = false"></button>
     </div>
     <div class="side-nav__body">
@@ -16,7 +16,7 @@
           </button>
         </li>
         <li class="side-nav__list-item">
-          <a class="side-nav__button" routerLink="/my/orders" (click)="sideNavOpened = false">
+          <a class="side-nav__button" routerLink="/cabinet/orders" (click)="sideNavOpened = false">
             <mat-icon class="icon-item circle-icon-reg" svgIcon="user-circle-reg"></mat-icon>
             My Orders
           </a>
@@ -51,13 +51,13 @@
       </ng-container>
       <ul class="side-nav__list">
         <li class="side-nav__list-item">
-          <button class="side-nav__button" type="button">
+          <a class="side-nav__button" routerLink="/cabinet/wishlist" (click)="sideNavOpened = false">
             <mat-icon class="icon-item circle-icon-reg" svgIcon="user-circle-reg"></mat-icon>
             Wish List
-          </button>
+          </a>
         </li>
         <li class="side-nav__list-item">
-          <a class="side-nav__button" routerLink="/my/orders" (click)="sideNavOpened = false">
+          <a class="side-nav__button" routerLink="/cabinet/orders" (click)="sideNavOpened = false">
             <mat-icon class="icon-item circle-icon-reg" svgIcon="user-circle-reg"></mat-icon>
             Compare
           </a>
@@ -65,13 +65,13 @@
       </ul>
       <ul class="side-nav__list">
         <li class="side-nav__list-item">
-          <a class="side-nav__button" routerLink="/" (click)="sideNavOpened = false">
+          <a class="side-nav__button" routerLink="/about-us" (click)="sideNavOpened = false">
             <mat-icon class="icon-item circle-icon-reg" svgIcon="user-circle-reg"></mat-icon>
             About Us
           </a>
         </li>
         <li class="side-nav__list-item">
-          <a class="side-nav__button" routerLink="/" (click)="sideNavOpened = false">
+          <a class="side-nav__button" routerLink="/contacts" (click)="sideNavOpened = false">
             <mat-icon class="icon-item circle-icon-reg" svgIcon="user-circle-reg"></mat-icon>
             Contacts
           </a>

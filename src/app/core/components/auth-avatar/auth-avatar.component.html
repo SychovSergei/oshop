@@ -1,5 +1,6 @@
 <ng-container *ngIf="user$ | async as user; else anonymous">
-  <a routerLink="/cabinet" class="avatar-block">
+  <a routerLink="/cabinet/personal-info" class="avatar-block"
+     (click)="closeSideNav()">
     <div class="side-nav__auth-avatar">
       <ng-container *ngIf="!user.photoURL; else image">
         <mat-icon class="circle-reg-icon" svgIcon="user-circle-reg"></mat-icon>

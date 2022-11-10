@@ -30,6 +30,7 @@ import {LayoutModule} from "@angular/cdk/layout";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatInputModule} from "@angular/material/input";
 import {WishListService} from "./services/wish-list.service";
+import {CabinetModule} from "../cabinet/cabinet.module";
 
 @NgModule({
   declarations: [

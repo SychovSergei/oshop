@@ -5,11 +5,11 @@ import {AuthService} from "../../../shared/services/auth.service";
 import {OrderService} from "../../../shared/services/order.service";
 
 @Component({
-  selector: 'app-my-orders',
-  templateUrl: './my-orders.component.html',
-  styleUrls: ['./my-orders.component.scss']
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.scss']
 })
-export class MyOrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit {
   orders$: Observable<Order[]>;
 
   constructor(

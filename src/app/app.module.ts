@@ -22,6 +22,7 @@ import {ShoppingModule} from "./shopping/shopping.module";
 import {CoreModule} from "./core/core.module";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NotifierModule, NotifierOptions} from "angular-notifier";
+import {CabinetModule} from "./cabinet/cabinet.module";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -69,10 +70,11 @@ const customNotifierOptions: NotifierOptions = {
     AppComponent,
   ],
   imports: [
+    AdminModule,
+    CabinetModule,
+    ShoppingModule,
     AppRoutingModule,
     BrowserModule,
-    AdminModule,
-    ShoppingModule,
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,

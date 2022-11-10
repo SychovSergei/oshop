@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {CheckOutComponent} from "./component/check-out/check-out.component";
-import {MyOrdersComponent} from "./component/my-orders/my-orders.component";
+import {OrdersComponent} from "../cabinet/components/orders/orders.component";
 import {OrderSuccessComponent} from "./component/order-success/order-success.component";
 import {ProductsComponent} from "./component/products/products.component";
 import {ProductFilterComponent} from "./component/products/product-filter/product-filter.component";
@@ -15,7 +15,7 @@ import {MatCardModule} from "@angular/material/card";
 @NgModule({
   declarations: [
     CheckOutComponent,
-    MyOrdersComponent,
+    OrdersComponent,
     OrderSuccessComponent,
     ProductsComponent,
     ProductFilterComponent,

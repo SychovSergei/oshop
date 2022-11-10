@@ -14,6 +14,7 @@ import { LoginComponent } from "./components/identification/login/login.componen
 import { ResetPasswordComponent } from './components/identification/reset-password/reset-password.component';
 import { AuthSocialComponent } from './components/identification/auth-social/auth-social.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     LoginComponent,
     ResetPasswordComponent,
     AuthSocialComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     SharedModule,
