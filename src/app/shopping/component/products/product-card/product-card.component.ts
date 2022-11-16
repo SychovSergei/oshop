@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from "../../../../shared/models/product";
+import {ProductTypeUnion} from "../../../../shared/models/product";
 import {ShoppingCartService} from "../../../../shared/services/shopping-cart.service";
 import {ShoppingCart} from "../../../../shared/models/shopping-cart";
 
@@ -9,7 +9,7 @@ import {ShoppingCart} from "../../../../shared/models/shopping-cart";
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
-  @Input('product') product: Product;
+  @Input('product') product: ProductTypeUnion;
   @Input('show-actions') showActions: boolean = true;
   @Input('shopping-cart') shoppingCart: ShoppingCart;
 

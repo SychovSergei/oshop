@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Product} from "../models/product";
+import {ProductTypeUnion} from "../models/product";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {AuthService} from "./auth.service";
 import {map, Observable, switchMap, take} from "rxjs";
@@ -39,10 +39,10 @@ export class WishListService {
   }
 
   private getItem(userUid: string, productId: string) {
-    return this.db.object<Product>('/wishLists/' + userUid + '/items/' + productId);
+    return this.db.object<ProductTypeUnion>('/wishLists/' + userUid + '/items/' + productId);
   }
 
-  updateWishList(product: Product) {
+  updateWishList(product: ProductTypeUnion) {
     let listItem = this.getItem(this.userUid!, product.key!);
     listItem.snapshotChanges()
       .pipe(take(1))

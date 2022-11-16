@@ -1,6 +1,9 @@
-export interface Product {
+import {FormGroup} from "@angular/forms";
+
+export class Product<T> {
   key?: string;
   dateCreated: number;
+  dateModify: number;
   description: string;
   discount: number;
   available: boolean;
@@ -9,6 +12,8 @@ export interface Product {
   price: number;
   category: string;
   images: ProductImage[];
+  creatorId: string;
+  details: T;
 }
 
 export interface ProductImage {
@@ -20,27 +25,26 @@ export interface ProductImage {
   url: string;
 }
 
-export interface Notebooks extends Product{
-  characteristics: {
-    screen: {
-      diagonal: string;
-      type: string;
-      refresh_rate: number;
-      resolution: string;
-      integrated_camera: string;
-    },
-    processor: {
-      cpu: string;
-      operating_system: number;
-      generation: string;
-    },
-    ram: {
-      type: string;
-      slots_number: number;
-      volume: string;
-    },
-    data_drivers: {
-      ssd_capacity: string;
-    }
-  };
+export class NotebookItem {
+  screen_diagonal: string;
+  screen_type: string;
+  processor_cpu: string;
+}
+export class ComputerItem {
+  screen_diagonal: string;
+}
+
+export type ProductTypeUnion =
+  Product<NotebookItem> |
+  Product<ComputerItem>
+
+
+
+export abstract class AbstractProdItemDetail {
+  public childForm: FormGroup;
+}
+
+export interface ContentType {
+  id: string;
+  label: string;
 }

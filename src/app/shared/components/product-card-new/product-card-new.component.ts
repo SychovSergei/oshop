@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {Product, ProductImage} from "../../models/product";
+import {ProductTypeUnion, ProductImage} from "../../models/product";
 import {ShoppingCart} from "../../models/shopping-cart";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {Router} from "@angular/router";
@@ -19,7 +19,7 @@ import {WishList} from "../../models/wish-list";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductCardNewComponent implements OnInit {
-  @Input('product') product: Product;
+  @Input('product') product: ProductTypeUnion;
   @Input('shopping-cart') shoppingCart: ShoppingCart;
   @Input('wish-list') wList: WishList;
 

@@ -1,10 +1,10 @@
 import {ShoppingCartItem} from "./shopping-cart-item";
-import {Product} from "./product";
+import {ProductTypeUnion} from "./product";
 
 export class ShoppingCart {
-  public productCartList: ShoppingCartItem[] = [];
+  public productCartList: ShoppingCartItem<any>[] = [];
 
-  constructor(public items: {[prodId: string]: ShoppingCartItem}) {
+  constructor(public items: {[prodId: string]: ShoppingCartItem<any>}) {
     this.items = items || {};
 
     for (let prodId in items) {
@@ -14,7 +14,7 @@ export class ShoppingCart {
     }
   }
 
-  getQuantity(product: Product): number {
+  getQuantity(product: ProductTypeUnion): number {
     let item = this.items[product.key!];
     return item ? item.quantity : 0;
   }

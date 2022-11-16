@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
-import {Product} from "../../../shared/models/product";
+import {ProductTypeUnion} from "../../../shared/models/product";
 import {ActivatedRoute} from "@angular/router";
 import {ShoppingCartService} from "../../../shared/services/shopping-cart.service";
 import {ShoppingCart} from "../../../shared/models/shopping-cart";
@@ -15,8 +15,8 @@ import {WishList} from "../../../shared/models/wish-list";
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
+  products: ProductTypeUnion[] = [];
+  filteredProducts: ProductTypeUnion[] = [];
   category: string;
   cart: ShoppingCart;
   wishList: WishList;
@@ -74,7 +74,7 @@ export class ProductsComponent implements OnInit {
 
     this.productService.getAll()
       .pipe(
-        switchMap((products) => {
+        switchMap((products: ProductTypeUnion[]) => {
           this.products = products;
           return this.route.queryParamMap;
         })

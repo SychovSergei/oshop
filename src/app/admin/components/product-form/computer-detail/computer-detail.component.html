@@ -1,0 +1,19 @@
+<div [formGroup]="childForm">
+  <mat-form-field appearance="fill">
+    <mat-label>COMPUTER Screen Diagonal</mat-label>
+    <input matInput
+           type="text"
+           formControlName="screen_diagonal"
+           id="screen_diagonal">
+    <mat-error *ngIf="childForm.get('screen_diagonal')!.hasError('required')">Error screen diagonal</mat-error>
+  </mat-form-field>
+<!--  <mat-form-field appearance="fill">-->
+<!--    <mat-label>COMPUTER Screen Type</mat-label>-->
+<!--    <input matInput-->
+<!--           type="text"-->
+<!--           formControlName="screen_type"-->
+<!--           id="screen_type">-->
+<!--    <mat-error *ngIf="childForm.get('screen_type')!.invalid">Error screen type</mat-error>-->
+<!--  </mat-form-field>-->
+</div>
+<p>computer-detail works!</p>

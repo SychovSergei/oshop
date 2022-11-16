@@ -1,55 +1,59 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {Product, ProductImage} from "../models/product";
+import {ProductImage, ProductTypeUnion} from "../models/product";
 import {map, Observable, take} from "rxjs";
+import {NotifierService} from "angular-notifier";
 
 @Injectable()
 export class ProductService {
+  private readonly notifier: NotifierService;
 
-  constructor(private db: AngularFireDatabase) { }
-
-  createEmptyProduct(category: string) {
-    return this.db.list('/products').push({
-      dateCreated: new Date().getTime(),
-      available: false,
-      title: 'New',
-      price: 0,
-      quantity: 0,
-      discount: 0,
-      description: 'New',
-      category: category,
-      images: []
-    } as Product);
+  constructor(
+    private db: AngularFireDatabase,
+    private notifierService: NotifierService
+  ) {
+    this.notifier = notifierService;
   }
 
-  create(product: Product) {
-    return this.db.list('/products').push(product);
+  create(product: ProductTypeUnion) {
+    return this.db.list('/products').push(product)
+      .then((res) => {
+        this.notifier.notify('success', 'The product has been created.');
+        return res;
+      });
   }
 
-  update(productId: string, product: Product) {
-    return this.db.object('/products/' + productId).update(product);
+  update(productId: string, product: ProductTypeUnion) {
+    console.log(product.category)
+    return this.db.object('/products/' + productId).update(product)
+      .then(() => {
+        this.notifier.notify('success', 'The product has been updated.');
+      });
   }
 
   delete(productId: string) {
-    return this.db.object('/products/' + productId).remove();
+    return this.db.object('/products/' + productId).remove()
+      .then(() => {
+        this.notifier.notify('success', 'The product has been deleted.');
+      });
   }
 
-  getAll(): Observable<Product[]> {
-    return this.db.list<Product[] | null>('/products')
+  getAll(): Observable<ProductTypeUnion[]> {
+    return this.db.list<ProductTypeUnion[] | null>(`/products/`)
       .snapshotChanges()
       .pipe(
         map(changes => changes
-          .map(c => ({ key: c.key, ...c.payload.toJSON() } as Product))
+          .map(c => ({ key: c.key, ...c.payload.toJSON() } as ProductTypeUnion))
         )
       );
   }
 
 
-  get(productId: string): Observable<Product> {
-    return this.db.object<Product>('/products/' + productId)
+  get(productId: string): Observable<ProductTypeUnion> {
+    return this.db.object<ProductTypeUnion>('/products/' + productId)
       .valueChanges()
       .pipe(
-        map(response => ({ key: productId, ...response} as Product))
+        map(response => ({ key: productId, ...response} as ProductTypeUnion))
       );
   }
 

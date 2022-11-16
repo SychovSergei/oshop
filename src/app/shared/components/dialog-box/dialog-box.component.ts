@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ControlService} from "../../../admin/components/control.service";
 import {CategoryService} from "../../services/category.service";
 import {Observable} from "rxjs";
 import {CategoryGroup} from "../../models/category.model";

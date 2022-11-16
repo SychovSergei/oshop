@@ -1,9 +1,9 @@
-import {Product} from "./product";
+import {Product, ProductTypeUnion} from "./product";
 
 export class WishList {
-  public wishList: Product[] = [];
+  public wishList: ProductTypeUnion[] = [];
 
-  constructor(public items: { [prodId: string]: Product }) {
+  constructor(public items: { [prodId: string]: ProductTypeUnion }) {
     this.items = items || {};
 
     for (let prodId in items) {
@@ -12,7 +12,7 @@ export class WishList {
     }
   }
 
-  isOnList(product: Product): boolean {
+  isOnList(product: Product<any>): boolean {
     return this.wishList
       ? this.wishList.findIndex((item) => { return item.key === product.key }) >= 0
       : false;

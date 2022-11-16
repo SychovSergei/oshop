@@ -19,15 +19,13 @@ import {ProductImageItemComponent} from "./components/product-form/product-image
 import {FileSizePipe} from "./pipes/file-size.pipe";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-// import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
-import { DynamicFormControlComponent } from './components/dynamic-form-control/dynamic-form-control.component';
-import {FormItemControlService} from "./form-item-control.service";
-import {ControlService} from "./components/control.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { ComputerDetailComponent } from './components/product-form/computer-detail/computer-detail.component';
+import { NotebookDetailComponent } from "./components/product-form/notebook-detail/notebook-detail.component";
 
 @NgModule({
   declarations: [
@@ -38,9 +36,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
     DropzoneDirective,
     UploadTaskComponent,
     ProductImageItemComponent,
+    NotebookDetailComponent,
+    ComputerDetailComponent,
     FileSizePipe,
-    // DynamicFormComponent,
-    DynamicFormControlComponent,
   ],
   imports: [
     AdminRoutingModule,
@@ -68,8 +66,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
   providers: [
     AdminAuthGuard,
     FileSizePipe,
-    FormItemControlService,
-    ControlService
   ]
 })
 export class AdminModule { }

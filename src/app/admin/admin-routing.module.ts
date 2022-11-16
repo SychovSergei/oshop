@@ -8,19 +8,21 @@ import {AdminOrdersComponent} from "./components/admin-orders/admin-orders.compo
 
 const routes: Routes = [
   {
+    path: 'admin/products',
+    component: AdminProductsComponent,
+    canActivate: [AuthGuard, AdminAuthGuard]
+  },
+  {
     path: 'admin/products/new',
     component: ProductFormComponent,
-    canActivate: [AuthGuard, AdminAuthGuard]
+    canActivate: [AuthGuard, AdminAuthGuard],
+    data: { createNew: true }
   },
   {
     path: 'admin/products/:id',
     component: ProductFormComponent,
-    canActivate: [AuthGuard, AdminAuthGuard]
-  },
-  {
-    path: 'admin/products',
-    component: AdminProductsComponent,
-    canActivate: [AuthGuard, AdminAuthGuard]
+    canActivate: [AuthGuard, AdminAuthGuard],
+    data: { createNew: false }
   },
   {
     path: 'admin/orders',

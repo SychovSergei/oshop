@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {Product} from "../models/product";
+import {ProductTypeUnion} from "../models/product";
 import {map, Observable, take} from "rxjs";
 import {ShoppingCart} from "../models/shopping-cart";
 import {ShoppingCartItem} from "../models/shopping-cart-item";
@@ -25,11 +25,11 @@ export class ShoppingCartService {
     this.db.object('/shopping-carts/' + cartId + '/items/').remove();
   }
 
-  addToCart(product: Product) {
+  addToCart(product: ProductTypeUnion) {
     this.updateProductItem(product, 1);
   }
 
-  removeFromCart(product: Product) {
+  removeFromCart(product: ProductTypeUnion) {
     this.updateProductItem(product, -1);
   }
 
@@ -40,7 +40,7 @@ export class ShoppingCartService {
   }
 
   private getItem(cartId: string, productId: string) {
-    return this.db.object<ShoppingCartItem>('/shopping-carts/' + cartId + '/items/' + productId);
+    return this.db.object<ShoppingCartItem<any>>('/shopping-carts/' + cartId + '/items/' + productId);
   }
 
   private async getOrCreateCartId(): Promise<string> {
@@ -52,13 +52,13 @@ export class ShoppingCartService {
     return result.key!;
   }
 
-  private async updateProductItem(product: Product, changeNumber: number) {
+  private async updateProductItem(product: ProductTypeUnion, changeNumber: number) {
     let cartId = await this.getOrCreateCartId();
     let prodItem = this.getItem(cartId, product.key!);
     prodItem.snapshotChanges()
       .pipe(take(1))
       .subscribe( item => {
-        if (changeNumber < 0 && (item.payload.toJSON() as ShoppingCartItem).quantity === 1) {
+        if (changeNumber < 0 && (item.payload.toJSON() as ShoppingCartItem<any>).quantity === 1) {
           prodItem.remove();
         } else {
           prodItem.update({
@@ -67,9 +67,9 @@ export class ShoppingCartService {
             price: product.price,
             mainImageUrl: product.images ? product.images[0].url : '',
             quantity: (item.payload.exists()
-              ? (item.payload.toJSON() as ShoppingCartItem).quantity
+              ? (item.payload.toJSON() as ShoppingCartItem<any>).quantity
               : 0) + changeNumber
-          } as ShoppingCartItem )
+          } as ShoppingCartItem<any> )
         }
       })
   }

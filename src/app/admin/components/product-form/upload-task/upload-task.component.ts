@@ -13,7 +13,6 @@ import {ProductImage} from "../../../../shared/models/product";
 export class UploadTaskComponent implements OnInit {
   @Input() file: File;
   @Output() imageObj = new EventEmitter<ProductImage>();
-  // @Output() isVisible = new EventEmitter<boolean>();
   prodId: string;
   basePath: string = "/productImageUploads";
   percentageChanges$: Observable<number | undefined>;

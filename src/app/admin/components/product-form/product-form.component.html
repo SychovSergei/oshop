@@ -1,9 +1,90 @@
 <div class="row">
   <div class="col-md-6">
-    <form [formGroup]="form" (ngSubmit)="saveOrUpdate(form.value)">
-      <ng-container *ngFor="let control of controls" class="form-row">
+    <h1>{{ createNewProductItem ? 'Create product' : 'Edit product'}}</h1>
+    <form [formGroup]="form" (ngSubmit)="saveOrUpdateProduct(form.value)">
+      <ng-container class="form-row">
         <div class="form-group mb-3">
-          <dynamic-form-control [control]="control"></dynamic-form-control>
+          <mat-form-field appearance="fill">
+            <mat-label>Product Name</mat-label>
+            <input matInput
+                   type="text"
+                   formControlName="title"
+                   id="title">
+            <mat-error *ngIf="form.get('title')!.hasError('required')">This field is required.</mat-error>
+            <mat-error *ngIf="form.get('title')!.hasError('minLength')">Min length - 3</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field floatLabel="always">
+            <mat-slide-toggle
+              id="available"
+              formControlName="available"
+            >Available</mat-slide-toggle>
+            <textarea matInput hidden></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Price</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="price"
+                   id="price">
+            <mat-error *ngIf="form.get('price')!.hasError('required')">This field is required.</mat-error>
+            <mat-error *ngIf="form.get('price')!.hasError('min')">Value must be greater than zero</mat-error>
+            <mat-error *ngIf="form.get('price')!.hasError('pattern')">Enter correct number (0.00)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Quantity</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="quantity"
+                   id="quantity">
+            <mat-error *ngIf="form.get('quantity')!.hasError('required')">This field is required.</mat-error>
+            <mat-error *ngIf="form.get('quantity')!.hasError('min')">Value must be greater than zero</mat-error>
+            <mat-error *ngIf="form.get('quantity')!.hasError('min')">Value must be less than 99999</mat-error>
+            <mat-error *ngIf="form.get('quantity')!.hasError('pattern')">Enter correct natural number (0-99999)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea id="description" rows="8"
+                      formControlName="description"
+                      matInput
+                      placeholder="Description...">
+            </textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Discount</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="discount"
+                   id="discount">
+            <mat-error *ngIf="form.get('discount')!.hasError('required')">This field is required.</mat-error>
+            <mat-error *ngIf="form.get('discount')!.hasError('max')">Value must not be greater than 100</mat-error>
+            <mat-error *ngIf="form.get('discount')!.hasError('min')">Value must be greater than zero</mat-error>
+            <mat-error *ngIf="form.get('discount')!.hasError('pattern')">Enter correct number (0.00)</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-3">
+          <mat-form-field appearance="fill" *ngIf="createNewProductItem">
+            <mat-label>Category</mat-label>
+            <mat-select id="category"
+                        formControlName="category"
+                        (selectionChange)="changeValue()"
+            >
+              <mat-option>-- None --</mat-option>
+                <mat-option *ngFor="let category of iterableContentTypes"
+                            [value]="category.id">{{category.label}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('category')!.hasError('required')">This field is required.</mat-error>
+          </mat-form-field>
         </div>
       </ng-container>
       <mat-accordion>
@@ -42,6 +123,10 @@
                 Product Detail Block
               </mat-panel-title>
             </mat-expansion-panel-header>
+            <div id="item-detail-container">
+              <div #itemDetail></div>
+            </div>
+            <div *ngIf="!form.value['category']">Please, select category...</div>
           </mat-expansion-panel>
         </div>
       </mat-accordion>

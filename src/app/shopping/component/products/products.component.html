@@ -105,19 +105,19 @@
   <section class="content">
     <!--  GRID COMPONENT-->
     <ul class="catalog-grid">
-      <li class="catalog-grid__item"
-          [ngClass]="{
-            'item__cols-5': isXLarge,
-            'item__cols-4': isLarge,
-            'item__cols-3': isMedium,
-            'item__cols-2': isSmall,
-            'item__cols-1': isXSmall
-          }"
-          *ngFor="let product of products">
-        <ng-container *ngIf="product.available">
-          <product-card-new [product]="product" [shopping-cart]="cart" [wish-list]="wishList"></product-card-new>
-        </ng-container>
-      </li>
+      <ng-container *ngFor="let product of products">
+        <li class="catalog-grid__item"
+            [ngClass]="{
+              'item__cols-5': isXLarge,
+              'item__cols-4': isLarge,
+              'item__cols-3': isMedium,
+              'item__cols-2': isSmall,
+              'item__cols-1': isXSmall
+            }"
+            *ngIf="product.available">
+            <product-card-new [product]="product" [shopping-cart]="cart" [wish-list]="wishList"></product-card-new>
+        </li>
+      </ng-container>
     </ul>
     <!--  // GRID COMPONENT-->
     <!--  CATALOG PAGINATOR COMPONENT-->
