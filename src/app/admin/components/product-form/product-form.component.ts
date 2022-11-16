@@ -65,10 +65,10 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       available: new FormControl(false, [
         Validators.required
       ]),
-      title: new FormControl('Name', [
+      title: new FormControl('', [
         Validators.required, Validators.minLength(3)
       ]),
-      price: new FormControl(150, [
+      price: new FormControl(0, [
         Validators.required,
         Validators.min(0),
         Validators.pattern('^\\$?([1-9]{1}[0-9]{0,2}(\\,[0-9]{3})*(\\.[0-9]{0,2})?|[1-9]{1}[0-9]{0,}(\\.[0-9]{0,2})?|0(\\.[0-9]{0,2})?|(\\.[0-9]{1,2})?)$')
@@ -79,7 +79,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
         Validators.max(99999),
         Validators.pattern('^(0|[1-9][0-9]{0,4}?)$')
       ]),
-      description: new FormControl('Descr', []),
+      description: new FormControl('', []),
       discount: new FormControl(0, [
         Validators.required,
         Validators.min(0),
