@@ -1,0 +1,35 @@
+<section *ngIf="cart$ | async as cart"
+         class="small-cart-wrap"
+         [ngClass]="{
+         'small-cart-wrap__phone-size': !isPhoneUpperScreen,
+         'small-cart-wrap__phone-upper-size': isPhoneUpperScreen
+         }">
+    <h3 class="small-cart__head">
+      <span class="small-cart__head-main">In your cart {{cart.totalItemsCount}} items</span>
+      <span class="small-cart__head-caption">
+      <span class="small-cart__head-caption__color-grey">Total amount: </span>
+      <span>{{cart.totalPrice}} </span>
+      <span>UAH</span>
+    </span>
+    </h3>
+    <div class="small-cart__goods" [ngClass]="{'hide': !isPhoneUpperScreen}">
+      <ul class="small-cart__goods-list">
+        <li *ngFor="let item of cart.productCartList"
+            class="small-cart__goods-item">
+          <a [routerLink]="['/product/' + item.key]">
+            <img [src]="item.mainImageUrl"
+                 [alt]="item.title">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <a class="small-cart__link"
+       [ngClass]="{'hide': !isPhoneUpperScreen}"
+       mat-flat-button
+       routerLink="/shopping-cart"
+
+    >To Cart</a>
+    <a class="small-cart__checkout"
+       mat-raised-button
+       routerLink="/check-out" color="primary">Сheckout</a>
+</section>
