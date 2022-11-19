@@ -1,10 +1,10 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {ProductsComponent} from "./component/products/products.component";
-import {CheckOutComponent} from "./component/check-out/check-out.component";
+import {ProductsComponent} from "./components/products/products.component";
+import {CheckOutComponent} from "./components/check-out/check-out.component";
 import {AuthGuard} from "../shared/services/auth.guard";
-import {OrderSuccessComponent} from "./component/order-success/order-success.component";
-import {ShoppingCartComponent} from "./component/shopping-cart/shopping-cart.component";
+import {OrderSuccessComponent} from "./components/order-success/order-success.component";
+import {ShoppingCartComponent} from "./components/shopping-cart/shopping-cart.component";
 
 const routes: Routes = [
   {path: 'products', component: ProductsComponent},

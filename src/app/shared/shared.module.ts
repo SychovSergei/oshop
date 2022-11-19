@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ProductCardComponent} from "../shopping/component/products/product-card/product-card.component";
+// import {ProductCardComponent} from "../shopping/components/products/product-card/product-card.component";
 import {ProductQuantityComponent} from "./components/product-quantity/product-quantity.component";
 
 import {AuthGuard} from "./services/auth.guard";
@@ -34,7 +34,7 @@ import {CabinetModule} from "../cabinet/cabinet.module";
 
 @NgModule({
   declarations: [
-    ProductCardComponent,
+    // ProductCardComponent,
     ProductQuantityComponent,
     CarouselImageComponent,
     DialogBoxComponent,
@@ -62,7 +62,7 @@ import {CabinetModule} from "../cabinet/cabinet.module";
   ],
   exports: [
     CommonModule,
-    ProductCardComponent,
+    // ProductCardComponent,
     ProductQuantityComponent,
     NgbModule,
     ProductCardNewComponent,

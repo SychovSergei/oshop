@@ -70,9 +70,9 @@ const customNotifierOptions: NotifierOptions = {
     AppComponent,
   ],
   imports: [
+    ShoppingModule,
     AdminModule,
     CabinetModule,
-    ShoppingModule,
     AppRoutingModule,
     BrowserModule,
     CoreModule,
