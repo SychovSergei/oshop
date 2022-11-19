@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core";
 import { AuthAvatarComponent } from './components/auth-avatar/auth-avatar.component';
-import {HomeComponent} from "./components/home/home.component";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../shared/shared.module";
 import {ToolbarComponent} from "./components/toolbar/toolbar.component";
@@ -19,7 +18,6 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 @NgModule({
   declarations: [
     AuthAvatarComponent,
-    HomeComponent,
     ToolbarComponent,
     FooterComponent,
     IdentificationComponent,
