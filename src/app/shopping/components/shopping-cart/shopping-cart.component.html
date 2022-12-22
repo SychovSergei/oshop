@@ -1,39 +1,41 @@
-<h1>Shopping cart</h1>
-<ng-container *ngIf="cart$ | async as cart">
-  <p>You have {{ cart.totalItemsCount }} products in your cart.
-    <button *ngIf="cart.totalItemsCount > 0"
-            (click)="clearCart()"
-            class="btn btn-light btn-sm">Clear Cart</button>
-  </p>
-  <table class="table table-hover">
-    <thead>
-      <th scope="col"></th>
-      <th scope="col">Product name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cart.productCartList; let i = index">
-        <td>
-          <image-thumb [url]="item.mainImageUrl"></image-thumb>
-        </td>
-        <td>{{ item.title }}</td>
-        <td>
-          <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
-        </td>
-        <td>{{ item.totalPrice | currency: 'USD' }}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>{{ cart.totalPrice | currency: 'USD' }}</th>
-      </tr>
-    </tfoot>
-  </table>
-  <a *ngIf="cart.totalItemsCount > 0"
-     routerLink="/check-out"
-     class="btn btn-primary">Check Out</a>
-</ng-container>
+<div class="layout">
+  <h1>Shopping cart</h1>
+  <ng-container *ngIf="cart$ | async as cart">
+    <p>You have {{ cart.totalItemsCount }} products in your cart.
+      <button *ngIf="cart.totalItemsCount > 0"
+              (click)="clearCart()"
+              class="btn btn-light btn-sm">Clear Cart</button>
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <th scope="col"></th>
+        <th scope="col">Product name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart.productCartList; let i = index">
+          <td>
+            <image-thumb [url]="item.mainImageUrl"></image-thumb>
+          </td>
+          <td>{{ item.title }}</td>
+          <td>
+            <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
+          </td>
+          <td>{{ item.totalPrice | currency: 'USD' }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>{{ cart.totalPrice | currency: 'USD' }}</th>
+        </tr>
+      </tfoot>
+    </table>
+    <a *ngIf="cart.totalItemsCount > 0"
+       routerLink="/check-out"
+       class="btn btn-primary">Check Out</a>
+  </ng-container>
+</div>
