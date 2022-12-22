@@ -6,7 +6,6 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-products',
@@ -25,7 +24,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private _liveAnnouncer: LiveAnnouncer,
-    private router: Router,
   ) {
   }
 
@@ -43,10 +41,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subProducts.unsubscribe();
-  }
-
-  createNew() {
-    this.router.navigate([`/admin/products/new`]);
   }
 
   applyFilter(event: KeyboardEvent) {
