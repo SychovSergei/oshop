@@ -22,6 +22,7 @@ export class ProductCardNewComponent implements OnInit {
   @Input('product') product: ProductTypeUnion;
   @Input('shopping-cart') shoppingCart: ShoppingCart;
   @Input('wish-list') wList: WishList;
+  @Input('disabled') disabled: boolean = false;
 
   private imgDefaultUrl: string;
   user$: Observable<firebase.User | null>;

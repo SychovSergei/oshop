@@ -24,7 +24,7 @@
     </ng-template>
   </div>
   <div class="img-group" [ngClass]="{'not-available': product.quantity == 0}">
-    <a href="" class="">
+    <a routerLink="/products/{{ product.category}}/{{product.key}}"  [class.disabled]="!!disabled">
       <ng-container *ngIf="product.images">
         <img mat-card-image [src]="getImgUrl(product.images)" alt="Photo of a Shiba Inu">
       </ng-container>
@@ -32,11 +32,11 @@
   </div>
   <mat-card-content>
     <div class="card-title" [ngClass]="{'not-available': product.quantity == 0}">
-      <a href="">{{ product.title }}</a>
+      <a routerLink="/products/{{ product.category}}/{{product.key}}" [class.disabled]="!!disabled">{{ product.title }}</a>
     </div>
     <div class="rating-group">
       <ngx-star-rating class="rating-stars" [id]="product.key!"><!--formControlName="rating"--></ngx-star-rating>
-      <a href="">Reviews(0)</a>
+      <a href="" [class.disabled]="!!disabled">Reviews(0)</a>
     </div>
     <div class="prices" [ngClass]="{'not-available': product.quantity == 0}">
       <div class="old-price"><span *ngIf="product.discount > 0">{{ product.price | currency: "USD" }}</span></div>
