@@ -23,8 +23,15 @@ export class ProductService {
       });
   }
 
+  createProdById(product: ProductTypeUnion, id: string) {
+    return this.db.object('/products/' + id).update(product)
+      .then((res) => {
+        this.notifier.notify('success', 'The product has been created.' + id);
+        return res;
+      });
+  }
+
   update(productId: string, product: ProductTypeUnion) {
-    console.log(product.category)
     return this.db.object('/products/' + productId).update(product)
       .then(() => {
         this.notifier.notify('success', 'The product has been updated.');

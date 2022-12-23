@@ -6,6 +6,7 @@ import {Observable, of, switchMap} from "rxjs";
 import {AppUser} from "./shared/models/app-user";
 import {ShoppingCart} from "./shared/models/shopping-cart";
 import {ShoppingCartService} from "./shared/services/shopping-cart.service";
+import {RoutingStateService} from "./shared/services/routing-state.service";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit{
     private authService: AuthService,
     private cartService: ShoppingCartService,
     private router: Router,
+    private routerState: RoutingStateService
     ) {
   }
 
@@ -43,6 +45,8 @@ export class AppComponent implements OnInit{
       )
 
     this.cart$ = (await this.cartService.getCart());
+
+    this.routerState.recordHistory();
   }
 
   logout() {

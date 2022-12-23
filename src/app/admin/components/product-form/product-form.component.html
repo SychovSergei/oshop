@@ -1,6 +1,8 @@
+<div class="layout">
 <div class="row">
+  <ng-container *ngIf="isProductExists; else notExist">
   <div class="col-md-6">
-    <h1>{{ createNewProductItem ? 'Create product' : 'Edit product'}}</h1>
+    <h1>{{ isCreateNewMode ? 'Create product' : 'Edit product'}}</h1>
     <form [formGroup]="form" (ngSubmit)="saveOrUpdateProduct(form.value)">
       <ng-container class="form-row">
         <div class="form-group mb-3">
@@ -72,7 +74,7 @@
           </mat-form-field>
         </div>
         <div class="form-group mb-3">
-          <mat-form-field appearance="fill" *ngIf="createNewProductItem">
+          <mat-form-field appearance="fill" *ngIf="isCreateNewMode">
             <mat-label>Category</mat-label>
             <mat-select id="category"
                         formControlName="category"
@@ -89,25 +91,40 @@
       </ng-container>
       <mat-accordion>
         <div class="form-group mb-3">
-          <mat-expansion-panel (opened)="panelOpenState = true"
+          <mat-expansion-panel [expanded]="true"
+                               (opened)="panelOpenState = true"
                                (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Image Upload Block
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <uploader [filesFromOldValue]="oldValueImages" (newFilesListFromDrop)="getFilesFromDrop($event)" (backupFilesListFromDrop)="backupFilesFromDrop($event)"></uploader>
+            <uploader [allowTypes]="['image/jpeg']" (filesFromDrop)="getFilesFromDrop($event)"></uploader>
             <div *ngFor="let file of filesForLoading">
-              <upload-task [file]="file" (imageObj)="addImage($event)"></upload-task>
+              <upload-task [file]="file" [path]="['/productImageUploads', newId || id ]" [hideTime]="5000" (imageObj)="addImage($event)"></upload-task>
             </div>
-            <ng-container *ngIf="images$ | async as images">
+            <ng-container *ngIf="images">
               <div *ngIf="images.length > 0">
-                <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let image of images" cdkDrag>
-                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                    <product-image-item
-                      [image]="image"
-                      (deleteImageName)="deleteImage($event)"
+                <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)">
+                  <div class="file-box" *ngFor="let image of images" cdkDrag [cdkDragStartDelay]="200">
+                    <div class="file-custom-placeholder" *cdkDragPlaceholder></div>
+                    <product-image-item [image]="image"
+                                        [isDeleted]="checkIsDeleted(image)"
+                                        (deleteImageName)="deleteImageFromViewList($event)"
+                                        (restoreImageName)="restoreImageToViewList($event)"
+                    ></product-image-item>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="imagesForDeleteArr">
+              <div *ngIf="imagesForDeleteArr.length > 0">
+                <div class="file-list">
+                  <div class="file-box" *ngFor="let imageDel of imagesForDeleteArr">
+                    <product-image-item [image]="imageDel"
+                                        [isDeleted]="checkIsDeleted(imageDel)"
+                                        (deleteImageName)="deleteImageFromViewList($event)"
+                                        (restoreImageName)="restoreImageToViewList($event)"
                     ></product-image-item>
                   </div>
                 </div>
@@ -130,19 +147,29 @@
           </mat-expansion-panel>
         </div>
       </mat-accordion>
-      <div class="form-group mb-3">
+      <div class="form-group mb-3 sticky-button-box">
         <button class="btn btn-primary"
                 [disabled]="form.invalid || !isFormChanged">
-          Save
+          {{isCreateNewMode ? 'Save' : 'Update'}}
         </button>
-        <button *ngIf="id" type="button" class="btn btn-danger"
-          (click)="delete()">
+        <button *ngIf="!isCreateNewMode"
+                type="button" class="btn btn-light"
+                (click)="delete()">
           Delete
         </button>
       </div>
     </form>
   </div>
   <div class="col-md-6">
-    <product-card-new [product]="product"></product-card-new>
+    <h4 style="margin-top: 16px;">Product preview</h4>
+    <product-card-new [ngClass]="{'sticky-top' : isMedium}"
+                      [product]="product"
+                      [disabled]="true"
+    ></product-card-new>
   </div>
+  </ng-container>
+  <ng-template #notExist>
+    <p>This product does not exist!</p>
+  </ng-template>
+</div>
 </div>
