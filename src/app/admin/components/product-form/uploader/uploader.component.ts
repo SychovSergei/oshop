@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ProductImage} from "../../../../shared/models/product";
 
 @Component({
   selector: 'uploader',
@@ -7,33 +6,27 @@ import {ProductImage} from "../../../../shared/models/product";
   styleUrls: ['./uploader.component.scss']
 })
 export class UploaderComponent {
-  @Input() filesFromOldValue: ProductImage[];
-  @Output() newFilesListFromDrop = new EventEmitter<File[]>()
-  @Output() backupFilesListFromDrop = new EventEmitter<File[]>()
+  @Input() allowTypes: string[] = [];
+  @Output() filesFromDrop = new EventEmitter<File[]>()
 
-  private newFiles: File[] = [];
-  private backupFiles: File[] = [];
-
-  onDrop(loadingFiles: FileList) {
-    const fileNamesFromOldValue = this.getActualFileNames(this.filesFromOldValue);
-    for (let i = 0; i < loadingFiles.length; i++) {
-      if (!fileNamesFromOldValue.includes(loadingFiles.item(i)!.name)) {
-        this.newFiles.push(loadingFiles.item(i)!);
-      } else if (fileNamesFromOldValue.includes(loadingFiles.item(i)!.name)) {
-        this.backupFiles.push(loadingFiles.item(i)!);
-      }
+  /** onDrop() get file list and convert to array of files.
+   *  Although filter by allow types of files */
+  onDrop(fileList: FileList) {
+    const files: File[] = [];
+    let filteredFiles: File[] = [];
+    /** get array of files */
+    for (let i = 0; i < fileList.length; i++) {
+      files.push(fileList.item(i)!);
     }
-    this.newFilesListFromDrop.emit(this.newFiles);
-    this.backupFilesListFromDrop.emit(this.backupFiles);
+
+    /** Filter array by allow types. Get All files by default */
+    if (this.allowTypes.length > 0) {
+      filteredFiles = files.filter(file => this.allowTypes.includes(file.type));
+    }
+
+    this.filesFromDrop.emit(filteredFiles.length > 0 ? filteredFiles : files);
   }
 
-  private getActualFileNames(images: ProductImage[]) {
-    const names: string[] = [];
-    images.forEach((image) => {
-      names.push(image.fileName);
-    });
-    return names;
-  }
 
   fromInput(event: Event) {
     this.onDrop((event.currentTarget as HTMLInputElement).files!)
