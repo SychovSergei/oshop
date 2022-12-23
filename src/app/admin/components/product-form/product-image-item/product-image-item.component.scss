@@ -1,8 +1,19 @@
+.card.deleted {
+  border: 1px solid #ffbaba;
+  user-select: none;
+}
 .card-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.card-header.deleted {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffc2c2;
 }
 .card-body {
   padding: 10px;

@@ -1,12 +1,10 @@
-<div class="card">
-  <div class="card-header">
+<div class="card" [ngClass]="{'deleted': isDeleted}">
+  <div class="card-header" [ngClass]="{'deleted': isDeleted}">
     <span>{{ image.fileName }}</span>
-    <button
-      class="btn btn-light btn-sm"
-      style="border: 1px solid grey;"
-      type="button"
-      (click)="deleteImage(image.fileName)"
-    >Delete</button>
+      <button class="btn btn-light btn-sm"
+              type="button"
+              (click)="isDeleted ? restoreImage() : deleteImage()"
+      >{{ isDeleted ? 'Restore' : 'Delete' }}</button>
   </div>
   <div class="card-body">
     <div class="card-content">

@@ -8,15 +8,21 @@ import {ProductImage} from "../../../../shared/models/product";
 })
 export class ProductImageItemComponent implements OnInit {
   @Input() image: ProductImage;
-  @Output() deleteImageName = new EventEmitter<string>();
+  @Input() isDeleted: boolean;
+  @Output() deleteImageName = new EventEmitter<ProductImage>();
+  @Output() restoreImageName = new EventEmitter<ProductImage>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  deleteImage(imageName: string) {
-    this.deleteImageName.emit(this.image.fileName);
+  deleteImage() {
+    this.deleteImageName.emit(this.image);
+  }
+
+  restoreImage() {
+    this.restoreImageName.emit(this.image);
   }
 
 }
